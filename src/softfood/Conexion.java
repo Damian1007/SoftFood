@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  * @author Damian
  */
 public class Conexion {
-    public static final String URL = "jdbc:mysql://localhost:3306/softfood";
+    public static final String URL = "jdbc:mysql://localhost:3306/soft_food";
     public static final String USERNAME = "root";
     public static final String PASSWORD = "12345";
     public Connection conec; 
