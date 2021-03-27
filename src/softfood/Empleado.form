@@ -6,7 +6,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -43,42 +43,48 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                          <Component id="jLabel4" min="-2" pref="69" max="-2" attributes="0"/>
+                          <Component id="jLabel3" alignment="0" min="-2" pref="69" max="-2" attributes="0"/>
+                          <Component id="jLabel7" alignment="0" min="-2" pref="69" max="-2" attributes="0"/>
+                          <Component id="jLabel8" alignment="0" min="-2" pref="69" max="-2" attributes="0"/>
+                          <Component id="jLabel2" alignment="0" min="-2" pref="69" max="-2" attributes="0"/>
+                          <Component id="jLabel6" alignment="0" min="-2" pref="69" max="-2" attributes="0"/>
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="bAgregar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel4" min="-2" pref="69" max="-2" attributes="0"/>
-                              <Component id="jLabel3" alignment="0" min="-2" pref="69" max="-2" attributes="0"/>
-                              <Component id="jLabel7" alignment="0" min="-2" pref="69" max="-2" attributes="0"/>
-                              <Component id="jLabel8" alignment="0" min="-2" pref="69" max="-2" attributes="0"/>
-                              <Component id="jLabel2" alignment="0" min="-2" pref="69" max="-2" attributes="0"/>
-                              <Component id="jLabel6" alignment="0" min="-2" pref="69" max="-2" attributes="0"/>
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          </Group>
                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="Apellido" max="32767" attributes="0"/>
-                                  <Component id="Nombre" max="32767" attributes="0"/>
-                                  <Component id="CodigoRes" max="32767" attributes="0"/>
-                                  <Component id="Cargo" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="Apellidotext" max="32767" attributes="0"/>
+                                  <Component id="Nombretxt" max="32767" attributes="0"/>
+                                  <Component id="CodigoRestxt" max="32767" attributes="0"/>
+                                  <Component id="Cargotext" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="codigoText" min="-2" pref="171" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="bBuscar" min="-2" pref="71" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Component id="Direccion" min="-2" pref="260" max="-2" attributes="0"/>
-                              <Component id="Telefono" min="-2" pref="260" max="-2" attributes="0"/>
+                              <Component id="Direcciontext" min="-2" pref="260" max="-2" attributes="0"/>
+                              <Component id="Telefonotext" min="-2" pref="260" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="bAgregar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                           <Component id="bModificar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="Eliminar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="btnLimpiar" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="131" max="32767" attributes="0"/>
@@ -104,38 +110,39 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                      <Component id="CodigoRes" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                      <Component id="CodigoRestxt" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel4" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                      <Component id="Nombre" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                      <Component id="Nombretxt" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                      <Component id="Apellido" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                      <Component id="Apellidotext" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel6" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                      <Component id="Cargo" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                      <Component id="Cargotext" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel7" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                      <Component id="Direccion" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                      <Component id="Direcciontext" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel8" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                      <Component id="Telefono" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                      <Component id="Telefonotext" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="bAgregar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="bModificar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="Eliminar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnLimpiar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="24" max="32767" attributes="0"/>
               </Group>
@@ -165,11 +172,11 @@
         </Component>
         <Component class="javax.swing.JTextField" name="codigoText">
         </Component>
-        <Component class="javax.swing.JTextField" name="CodigoRes">
+        <Component class="javax.swing.JTextField" name="CodigoRestxt">
         </Component>
-        <Component class="javax.swing.JTextField" name="Nombre">
+        <Component class="javax.swing.JTextField" name="Nombretxt">
         </Component>
-        <Component class="javax.swing.JTextField" name="Apellido">
+        <Component class="javax.swing.JTextField" name="Apellidotext">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
@@ -177,7 +184,7 @@
               <Font name="Tahoma" size="18" style="0"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Restaurante"/>
+            <Property name="text" type="java.lang.String" value="Empleado"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="bAgregar">
@@ -204,14 +211,14 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bBuscarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="Cargo">
+        <Component class="javax.swing.JTextField" name="Cargotext">
         </Component>
-        <Component class="javax.swing.JTextField" name="Direccion">
+        <Component class="javax.swing.JTextField" name="Direcciontext">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DireccionActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DirecciontextActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="Telefono">
+        <Component class="javax.swing.JTextField" name="Telefonotext">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
@@ -234,6 +241,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EliminarActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnLimpiar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Limpiar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimpiarActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

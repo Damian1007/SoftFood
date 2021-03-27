@@ -5,10 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Damian
- */
 public class Restaurante extends javax.swing.JFrame {
     
     PreparedStatement ps;
@@ -35,6 +31,8 @@ public class Restaurante extends javax.swing.JFrame {
         bAgregar = new javax.swing.JButton();
         bModificar = new javax.swing.JButton();
         bBuscar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,11 +56,30 @@ public class Restaurante extends javax.swing.JFrame {
         });
 
         bModificar.setText("Modificar");
+        bModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bModificarActionPerformed(evt);
+            }
+        });
 
         bBuscar.setText("Buscar");
         bBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bBuscarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
             }
         });
 
@@ -81,22 +98,26 @@ public class Restaurante extends javax.swing.JFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(38, 38, 38)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(telefonoText, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-                            .addComponent(ubicacionText, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-                            .addComponent(nombreText, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                            .addComponent(telefonoText)
+                            .addComponent(ubicacionText)
+                            .addComponent(nombreText)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(codigoText, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(bBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(bBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(150, 150, 150)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
+                        .addGap(57, 57, 57)
                         .addComponent(bAgregar)
-                        .addGap(59, 59, 59)
-                        .addComponent(bModificar)))
-                .addContainerGap(130, Short.MAX_VALUE))
+                        .addGap(47, 47, 47)
+                        .addComponent(bModificar)
+                        .addGap(39, 39, 39)
+                        .addComponent(btnEliminar)
+                        .addGap(37, 37, 37)
+                        .addComponent(btnLimpiar)))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,19 +144,26 @@ public class Restaurante extends javax.swing.JFrame {
                 .addGap(81, 81, 81)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bAgregar)
-                    .addComponent(bModificar))
-                .addContainerGap(84, Short.MAX_VALUE))
+                    .addComponent(bModificar)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnEliminar)
+                        .addComponent(btnLimpiar)))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 49, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 37, Short.MAX_VALUE))
         );
 
         pack();
@@ -147,6 +175,7 @@ public class Restaurante extends javax.swing.JFrame {
         nombreText.setText("");
         ubicacionText.setText("");
         telefonoText.setText("");
+        codigoText.setText("");
     }
     
     private void bAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarActionPerformed
@@ -179,6 +208,7 @@ public class Restaurante extends javax.swing.JFrame {
     }//GEN-LAST:event_bAgregarActionPerformed
 
     private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
+        bAgregar.setEnabled(false);
         Conexion con = new Conexion();
         
         try{
@@ -202,6 +232,67 @@ public class Restaurante extends javax.swing.JFrame {
             System.err.println(e);
         }
     }//GEN-LAST:event_bBuscarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        Conexion con = new Conexion();
+
+        try{
+            Connection cone = con.getConec();
+            ps = cone.prepareStatement("DELETE FROM restaurante WHERE Codigo=?");
+            ps.setInt(1, Integer.parseInt(codigoText.getText()));
+
+            int res = ps.executeUpdate();
+
+            if(res > 0){
+                JOptionPane.showMessageDialog(null, "Restaurante eliminado");
+                limpiar();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Error al eliminar restaurante ");
+                limpiar();
+            }
+
+            cone.close();
+        }
+        catch(Exception e){
+            System.err.println(e);
+        }
+
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiar();
+        bAgregar.setEnabled(true);
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void bModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarActionPerformed
+        Conexion con = new Conexion();
+
+        try{
+            Connection cone = con.getConec();
+            ps = cone.prepareStatement("UPDATE restaurante SET Nombre=?, Ubicacion=?, Telefono=? WHERE Codigo=?");
+            ps.setString(1, nombreText.getText());
+            ps.setString(2, ubicacionText.getText());
+            ps.setString(3, telefonoText.getText());
+            ps.setString(4, codigoText.getText());
+
+            int res = ps.executeUpdate();
+
+            if(res > 0){
+                JOptionPane.showMessageDialog(null, "Restaurante modificado");
+                limpiar();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Error al modificar Restaurante ");
+                limpiar();
+            }
+
+            cone.close();
+        }
+        catch(Exception e){
+            System.err.println(e);
+        }
+    }//GEN-LAST:event_bModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,6 +333,8 @@ public class Restaurante extends javax.swing.JFrame {
     private javax.swing.JButton bAgregar;
     private javax.swing.JButton bBuscar;
     private javax.swing.JButton bModificar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JTextField codigoText;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
