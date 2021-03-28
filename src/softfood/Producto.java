@@ -15,10 +15,17 @@ public class Producto extends javax.swing.JFrame {
     PreparedStatement ps;
     ResultSet rs;
     
+    int cualusurioes;
     
     public Producto() {
         initComponents();
         mostrarDatos();
+    }
+    
+    public Producto(int cualusuario) {
+        initComponents();
+        mostrarDatos();
+        this.cualusurioes=cualusuario;
     }
     
     public void mostrarDatos(){     
@@ -45,11 +52,9 @@ public class Producto extends javax.swing.JFrame {
                 for (int i = 0; i < cantidadColumnas; i++) {
                     filas[i]=rs.getObject(i+1);
                 }
-                modelo.addRow(filas);  
-                
+                modelo.addRow(filas);      
             }
-
-            
+  
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
@@ -81,6 +86,7 @@ public class Producto extends javax.swing.JFrame {
         bModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        jBtnMenu = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableProducto = new javax.swing.JTable();
@@ -133,15 +139,21 @@ public class Producto extends javax.swing.JFrame {
             }
         });
 
+        jBtnMenu.setText("Menu Principal");
+        jBtnMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnMenuActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
+                        .addGap(39, 39, 39)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
@@ -158,17 +170,22 @@ public class Producto extends javax.swing.JFrame {
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(nombreText))
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(bAgregar)
-                        .addGap(18, 18, 18)
-                        .addComponent(bModificar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEliminar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnLimpiar)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(bAgregar)
+                                .addGap(18, 18, 18)
+                                .addComponent(bModificar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnEliminar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnLimpiar))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(109, 109, 109)
+                                .addComponent(jBtnMenu)))))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,13 +205,15 @@ public class Producto extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(valorText, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bAgregar)
                     .addComponent(bModificar)
                     .addComponent(btnEliminar)
                     .addComponent(btnLimpiar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(jBtnMenu)
+                .addGap(43, 43, 43))
         );
 
         jTabbedPane1.addTab("CRUD PRODUCTOS", jPanel1);
@@ -396,6 +415,12 @@ public class Producto extends javax.swing.JFrame {
        mostrarDatos();
     }//GEN-LAST:event_jBCargarActionPerformed
 
+    private void jBtnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnMenuActionPerformed
+        Menu_Principal menu = new Menu_Principal(cualusurioes);
+        menu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jBtnMenuActionPerformed
+
     public static void main(String args[]) {
         
         try {
@@ -432,6 +457,7 @@ public class Producto extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JTextField codigoText;
     private javax.swing.JButton jBCargar;
+    private javax.swing.JButton jBtnMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -13,11 +13,18 @@ public class Restaurante extends javax.swing.JFrame {
     PreparedStatement ps;
     ResultSet rs;
     
+    int cualusurioes;
+    
     public Restaurante() {
         initComponents();
         mostrarDatos();
     }
     
+    public Restaurante(int cualusuario) {
+        initComponents();
+        mostrarDatos();
+        this.cualusurioes=cualusuario;
+    }
     
     public void mostrarDatos(){     
         try {
@@ -71,6 +78,7 @@ public class Restaurante extends javax.swing.JFrame {
         bBuscar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        jBtnMenu = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableRestaurante = new javax.swing.JTable();
@@ -125,6 +133,13 @@ public class Restaurante extends javax.swing.JFrame {
             }
         });
 
+        jBtnMenu.setText("Menu Principal");
+        jBtnMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnMenuActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -160,6 +175,10 @@ public class Restaurante extends javax.swing.JFrame {
                         .addGap(82, 82, 82)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(21, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jBtnMenu)
+                .addGap(174, 174, 174))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,7 +210,9 @@ public class Restaurante extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(bAgregar)
                         .addComponent(bModificar)))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(jBtnMenu)
+                .addGap(22, 22, 22))
         );
 
         jTabbedPane1.addTab("CRUD RESTAURANTE", jPanel1);
@@ -401,6 +422,12 @@ public class Restaurante extends javax.swing.JFrame {
         mostrarDatos();
     }//GEN-LAST:event_jBCargarActionPerformed
 
+    private void jBtnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnMenuActionPerformed
+        Menu_Principal menu = new Menu_Principal(cualusurioes);
+        menu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jBtnMenuActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -444,6 +471,7 @@ public class Restaurante extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JTextField codigoText;
     private javax.swing.JButton jBCargar;
+    private javax.swing.JButton jBtnMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
