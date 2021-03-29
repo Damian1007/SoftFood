@@ -1,4 +1,5 @@
 package softfood;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,38 +9,37 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Empleado extends javax.swing.JFrame {
-    
+
     PreparedStatement ps;
     ResultSet rs;
-    
+
     int cualusurioes;
-    
+
     public Empleado() {
         initComponents();
         mostrarDatos();
     }
-    
+
     public Empleado(int cualusuario) {
         initComponents();
         mostrarDatos();
-        this.cualusurioes=cualusuario;
+        this.cualusurioes = cualusuario;
     }
-    
 
-    public void mostrarDatos(){     
+    public void mostrarDatos() {
         try {
             DefaultTableModel modelo = new DefaultTableModel();
             jTableEmpleado.setModel(modelo);
             Conexion con = new Conexion();
             Connection cone = con.getConec();
-            
-            String sql ="SELECT Cedula,Nombre,Apellido,Direccion,Telefono,Cod_Restaurante,Cargo,Usuario,Contraseña FROM empleado";
+
+            String sql = "SELECT Cedula,Nombre,Apellido,Direccion,Telefono,Cod_Restaurante,Cargo,Usuario,Contraseña FROM empleado";
             ps = cone.prepareStatement(sql);
             rs = ps.executeQuery();
-            
+
             ResultSetMetaData rsmd = rs.getMetaData();
             int cantidadColumnas = rsmd.getColumnCount();
-            
+
             modelo.addColumn("Cedula");
             modelo.addColumn("Nombre");
             modelo.addColumn("Apellido");
@@ -49,23 +49,22 @@ public class Empleado extends javax.swing.JFrame {
             modelo.addColumn("Cargo");
             modelo.addColumn("Usuario");
             modelo.addColumn("Contraseña");
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Object[] filas = new Object[cantidadColumnas];
-                
+
                 for (int i = 0; i < cantidadColumnas; i++) {
-                    filas[i]=rs.getObject(i+1);
+                    filas[i] = rs.getObject(i + 1);
                 }
-                modelo.addRow(filas);  
-                
+                modelo.addRow(filas);
+
             }
 
-            
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -103,7 +102,6 @@ public class Empleado extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableEmpleado = new javax.swing.JTable();
         jBCargar = new javax.swing.JButton();
-        jBtnMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -360,18 +358,11 @@ public class Empleado extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("MOSTRAR EMPLEADO", jPanel2);
 
-        jBtnMenu.setText("Menu Principal");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jBtnMenu)
-                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -379,11 +370,6 @@ public class Empleado extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 547, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jBtnMenu)
-                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
@@ -402,25 +388,23 @@ public class Empleado extends javax.swing.JFrame {
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         Conexion con = new Conexion();
 
-        try{
+        try {
             Connection cone = con.getConec();
             ps = cone.prepareStatement("DELETE FROM empleado WHERE Cedula=?");
-            ps.setFloat(1, Float.parseFloat(cedulatext.getText()));
+            ps.setInt(1, Integer.parseInt(cedulatext.getText()));
 
             int res = ps.executeUpdate();
 
-            if(res > 0){
+            if (res > 0) {
                 JOptionPane.showMessageDialog(null, "Producto eliminado");
                 limpiar();
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Error al eliminar producto ");
                 limpiar();
             }
-
+            
             cone.close();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.err.println(e);
         }
     }//GEN-LAST:event_EliminarActionPerformed
@@ -430,11 +414,11 @@ public class Empleado extends javax.swing.JFrame {
         String valorPass = new String(contrasenatext.getPassword());
         String valorConfirPass = new String(confirmarcontrasenatext.getPassword());
 
-        if(valorPass.equals(valorConfirPass)){
-            try{
+        if (valorPass.equals(valorConfirPass)) {
+            try {
                 Connection cone = con.getConec();
                 ps = cone.prepareStatement("UPDATE empleado SET Cedula=?,Nombre=?,Apellido=?,Direccion=?,Telefono=?,Cod_Restaurante=?,Cargo=?,Usuario=?,Contraseña=? WHERE Cedula=?");
-                ps.setFloat(1, Float.parseFloat(cedulatext.getText()));
+                ps.setInt(1, Integer.parseInt(cedulatext.getText()));
                 ps.setString(2, Nombretxt.getText());
                 ps.setString(3, Apellidotext.getText());
                 ps.setString(4, Direcciontext.getText());
@@ -447,21 +431,18 @@ public class Empleado extends javax.swing.JFrame {
 
                 int res = ps.executeUpdate();
 
-                if(res > 0){
+                if (res > 0) {
                     JOptionPane.showMessageDialog(null, "Empleado Modificado");
                     limpiar();
-                }
-                else{
+                } else {
                     JOptionPane.showMessageDialog(null, "Error al modificar Empleado ");
                 }
 
                 cone.close();
-            }
-            catch(Exception e){
+            } catch (Exception e) {
                 System.err.println(e);
             }
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden");
         }
     }//GEN-LAST:event_bModificarActionPerformed
@@ -471,11 +452,11 @@ public class Empleado extends javax.swing.JFrame {
         String valorPass = new String(contrasenatext.getPassword());
         String valorConfirPass = new String(confirmarcontrasenatext.getPassword());
 
-        if(valorPass.equals(valorConfirPass)){
-            try{
+        if (valorPass.equals(valorConfirPass)) {
+            try {
                 Connection cone = con.getConec();
                 ps = cone.prepareStatement("INSERT INTO empleado (Cedula,Nombre,Apellido,Direccion,Telefono,Cod_Restaurante,Cargo,Usuario,Contraseña) VALUES(?,?,?,?,?,?,?,?,?)");
-                ps.setFloat(1, Float.parseFloat(cedulatext.getText()));
+                ps.setInt(1, Integer.parseInt(cedulatext.getText()));
                 ps.setString(2, Nombretxt.getText());
                 ps.setString(3, Apellidotext.getText());
                 ps.setString(4, Direcciontext.getText());
@@ -487,21 +468,18 @@ public class Empleado extends javax.swing.JFrame {
 
                 int res = ps.executeUpdate();
 
-                if(res > 0){
+                if (res > 0) {
                     JOptionPane.showMessageDialog(null, "Empleado Guardado");
                     limpiar();
-                }
-                else{
+                } else {
                     JOptionPane.showMessageDialog(null, "Error al Guardar Empleado ");
                 }
 
                 cone.close();
-            }
-            catch(Exception e){
+            } catch (Exception e) {
                 System.err.println(e);
             }
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden");
         }
     }//GEN-LAST:event_bAgregarActionPerformed
@@ -515,31 +493,29 @@ public class Empleado extends javax.swing.JFrame {
 
         Conexion con = new Conexion();
 
-        try{
+        try {
             Connection cone = con.getConec();
             ps = cone.prepareStatement("SELECT * FROM empleado  WHERE Cedula = ?");
             ps.setInt(1, Integer.parseInt(cedulatext.getText()));
 
             rs = ps.executeQuery();
 
-            if(rs.next()){
-                cedulatext.setText(rs.getString ("Cedula"));
-                Nombretxt.setText(rs.getString ("Nombre"));
-                Apellidotext.setText(rs.getString ("Apellido" ));
-                Direcciontext.setText(rs.getString ( "Direccion" ));
-                Telefonotext.setText(rs.getString ( "Telefono" ));
-                CodigoRestxt.setText(rs.getString ("Cod_Restaurante" ));
-                Cargotext.setText(rs.getString ("Cargo" ));
-                Usuariotext.setText(rs.getString ("Usuario" ));
-                contrasenatext.setText(rs.getString ("Contraseña"));
-                confirmarcontrasenatext.setText(rs.getString ("Contraseña"));
-            }
-            else {
-                JOptionPane . showMessageDialog ( null , " Empleado No Encontrado " );
+            if (rs.next()) {
+                cedulatext.setText(rs.getString("Cedula"));
+                Nombretxt.setText(rs.getString("Nombre"));
+                Apellidotext.setText(rs.getString("Apellido"));
+                Direcciontext.setText(rs.getString("Direccion"));
+                Telefonotext.setText(rs.getString("Telefono"));
+                CodigoRestxt.setText(rs.getString("Cod_Restaurante"));
+                Cargotext.setText(rs.getString("Cargo"));
+                Usuariotext.setText(rs.getString("Usuario"));
+                contrasenatext.setText(rs.getString("Contraseña"));
+                confirmarcontrasenatext.setText(rs.getString("Contraseña"));
+            } else {
+                JOptionPane.showMessageDialog(null, " Empleado No Encontrado ");
             }
 
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.err.println(e);
         }
     }//GEN-LAST:event_bBuscarActionPerformed
@@ -550,8 +526,7 @@ public class Empleado extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jBtnMenu1ActionPerformed
 
-    
-    public void limpiar(){
+    public void limpiar() {
         CodigoRestxt.setText("");
         Nombretxt.setText("");
         Apellidotext.setText("");
@@ -564,7 +539,7 @@ public class Empleado extends javax.swing.JFrame {
         confirmarcontrasenatext.setText("");
         Cargotext.setText("");
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -618,7 +593,6 @@ public class Empleado extends javax.swing.JFrame {
     private javax.swing.JPasswordField confirmarcontrasenatext;
     private javax.swing.JPasswordField contrasenatext;
     private javax.swing.JButton jBCargar;
-    private javax.swing.JButton jBtnMenu;
     private javax.swing.JButton jBtnMenu1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
