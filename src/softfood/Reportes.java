@@ -45,6 +45,7 @@ public class Reportes extends javax.swing.JFrame {
         rSCalendar2 = new rojeru_san.componentes.RSCalendar();
         rSDateChooser1 = new rojeru_san.componentes.RSDateChooser();
         rSDateChooser2 = new rojeru_san.componentes.RSDateChooser();
+        rSDateChooser3 = new rojeru_san.componentes.RSDateChooser();
         jPanel2 = new javax.swing.JPanel();
         jBCargar = new javax.swing.JButton();
 
@@ -103,7 +104,10 @@ public class Reportes extends javax.swing.JFrame {
                         .addGap(110, 110, 110)
                         .addComponent(jBtnMenu))
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanelAgregarInsumos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanelAgregarInsumos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(rSDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -129,9 +133,15 @@ public class Reportes extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(65, 65, 65)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanelAgregarInsumos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanelAgregarInsumos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(52, 52, 52))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(rSDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jBtnMenu)
                 .addGap(27, 27, 27))
         );
@@ -255,5 +265,6 @@ public class Reportes extends javax.swing.JFrame {
     private rojeru_san.componentes.RSCalendar rSCalendar2;
     private rojeru_san.componentes.RSDateChooser rSDateChooser1;
     private rojeru_san.componentes.RSDateChooser rSDateChooser2;
+    private rojeru_san.componentes.RSDateChooser rSDateChooser3;
     // End of variables declaration//GEN-END:variables
 }
