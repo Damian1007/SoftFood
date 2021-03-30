@@ -1,60 +1,81 @@
 package softfood;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Restaurante extends javax.swing.JFrame {
-    
+
     PreparedStatement ps;
     ResultSet rs;
-    
+
     int cualusurioes;
-    
+
     public Restaurante() {
         initComponents();
         mostrarDatos();
+        codigoText.setText("" + idAutoincrementado() + "");
     }
-    
+
     public Restaurante(int cualusuario) {
         initComponents();
         mostrarDatos();
-        this.cualusurioes=cualusuario;
+        this.cualusurioes = cualusuario;
+        codigoText.setText("" + idAutoincrementado() + "");
     }
-    
-    public void mostrarDatos(){     
+
+    public void mostrarDatos() {
         try {
             DefaultTableModel modelo = new DefaultTableModel();
             jTableRestaurante.setModel(modelo);
             Conexion con = new Conexion();
             Connection cone = con.getConec();
-            
-            String sql ="SELECT Codigo,Nombre,Ubicacion,Telefono FROM restaurante";
+
+            String sql = "SELECT Codigo,Nombre,Ubicacion,Telefono FROM restaurante";
             ps = cone.prepareStatement(sql);
             rs = ps.executeQuery();
-            
+
             ResultSetMetaData rsmd = rs.getMetaData();
             int cantidadColumnas = rsmd.getColumnCount();
-            
+
             modelo.addColumn("Codigo");
             modelo.addColumn("Nombre");
             modelo.addColumn("Ubicacion");
             modelo.addColumn("Telefono");
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Object[] filas = new Object[cantidadColumnas];
-                
+
                 for (int i = 0; i < cantidadColumnas; i++) {
-                    filas[i]=rs.getObject(i+1);
+                    filas[i] = rs.getObject(i + 1);
                 }
-                modelo.addRow(filas);     
+                modelo.addRow(filas);
             }
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
+    }
+
+    public int idAutoincrementado() {
+        int idSiguiente = 0;
+        Conexion con = new Conexion();
+        try {
+            Connection cone = con.getConec();
+            ps = cone.prepareStatement("SELECT MAX(Codigo) FROM restaurante;");
+            rs = ps.executeQuery();
+            rs.next();
+            idSiguiente = 1 + Integer.parseInt(rs.getString(1));
+            return idSiguiente;
+        } catch (SQLException ex) {
+            Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return idSiguiente;
     }
 
     @SuppressWarnings("unchecked")
@@ -293,65 +314,60 @@ public class Restaurante extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    public void limpiar(){
+    public void limpiar() {
         nombreText.setText("");
         ubicacionText.setText("");
         telefonoText.setText("");
-        codigoText.setText("");
+        codigoText.setText("" + idAutoincrementado() + "");
     }
-    
+
     private void bAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarActionPerformed
         Conexion con = new Conexion();
-        
-        
-        try{
+
+        try {
             Connection cone = con.getConec();
-            ps = cone.prepareStatement("INSERT INTO restaurante (Nombre, Ubicacion, Telefono) VALUES(?,?,?)");
-            ps.setString(1, nombreText.getText());
-            ps.setString(2, ubicacionText.getText());
-            ps.setString(3, telefonoText.getText());
-            
+            ps = cone.prepareStatement("INSERT INTO restaurante (Codigo, Nombre, Ubicacion, Telefono) VALUES(?,?,?,?)");
+            ps.setInt(1, Integer.parseInt(codigoText.getText()));
+            ps.setString(2, nombreText.getText());
+            ps.setString(3, ubicacionText.getText());
+            ps.setString(4, telefonoText.getText());
+
             int res = ps.executeUpdate();
-            
-            if(res > 0){
+
+            if (res > 0) {
                 JOptionPane.showMessageDialog(null, "Restaurante Guardado");
                 limpiar();
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Error al Guardar Restaurante ");
             }
-            
+
             cone.close();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.err.println(e);
         }
-        
+
     }//GEN-LAST:event_bAgregarActionPerformed
 
     private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
         bAgregar.setEnabled(false);
         Conexion con = new Conexion();
-        
-        try{
+
+        try {
             Connection cone = con.getConec();
             ps = cone.prepareStatement("SELECT * FROM restaurante  WHERE Codigo = ?");
             ps.setInt(1, Integer.parseInt(codigoText.getText()));
-            
+
             rs = ps.executeQuery();
-            
-            if(rs.next()){
+
+            if (rs.next()) {
                 codigoText.setText(rs.getString("Codigo"));
                 nombreText.setText(rs.getString("Nombre"));
                 ubicacionText.setText(rs.getString("Ubicacion"));
                 telefonoText.setText(rs.getString("Telefono"));
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Restaurante No Encontrado");
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.err.println(e);
         }
     }//GEN-LAST:event_bBuscarActionPerformed
@@ -359,25 +375,23 @@ public class Restaurante extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         Conexion con = new Conexion();
 
-        try{
+        try {
             Connection cone = con.getConec();
             ps = cone.prepareStatement("DELETE FROM restaurante WHERE Codigo=?");
             ps.setInt(1, Integer.parseInt(codigoText.getText()));
 
             int res = ps.executeUpdate();
 
-            if(res > 0){
+            if (res > 0) {
                 JOptionPane.showMessageDialog(null, "Restaurante eliminado");
                 limpiar();
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Error al eliminar restaurante ");
                 limpiar();
             }
 
             cone.close();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.err.println(e);
         }
 
@@ -391,7 +405,7 @@ public class Restaurante extends javax.swing.JFrame {
     private void bModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarActionPerformed
         Conexion con = new Conexion();
 
-        try{
+        try {
             Connection cone = con.getConec();
             ps = cone.prepareStatement("UPDATE restaurante SET Nombre=?, Ubicacion=?, Telefono=? WHERE Codigo=?");
             ps.setString(1, nombreText.getText());
@@ -401,18 +415,16 @@ public class Restaurante extends javax.swing.JFrame {
 
             int res = ps.executeUpdate();
 
-            if(res > 0){
+            if (res > 0) {
                 JOptionPane.showMessageDialog(null, "Restaurante modificado");
                 limpiar();
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Error al modificar Restaurante ");
                 limpiar();
             }
 
             cone.close();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.err.println(e);
         }
     }//GEN-LAST:event_bModificarActionPerformed

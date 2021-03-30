@@ -17,19 +17,23 @@ public class Producto extends javax.swing.JFrame {
 
     int cualusurioes = 1;
 
+    int codigoContiene = 0;
+
     public Producto() {
         initComponents();
         mostrarDatos();
+        mostrarDatosInsumoContenido();
         jPanelAgregarInsumos.setVisible(false);
-        codigoText.setText("" + idAutoincrementado() + "");
+        codigoText.setText("" + idAutoincrementado("producto") + "");
     }
 
     public Producto(int cualusuario) {
         initComponents();
         mostrarDatos();
+        mostrarDatosInsumoContenido();
         this.cualusurioes = cualusuario;
         jPanelAgregarInsumos.setVisible(false);
-        codigoText.setText("" + idAutoincrementado() + "");
+        codigoText.setText("" + idAutoincrementado("producto") + "");
     }
 
     public void mostrarDatos() {
@@ -64,12 +68,58 @@ public class Producto extends javax.swing.JFrame {
         }
     }
 
+    public void mostrarDatosInsumoContenido() {
+
+        String campo = codigoproductotext.getText();
+        String where = "";
+
+        if (!"".equals(campo)) {
+            where = "WHERE c.Cod_Producto = '" + campo + "'";
+        }
+
+        try {
+            DefaultTableModel modelo = new DefaultTableModel();
+            jTableInsumoContenido.setModel(modelo);
+            Conexion con = new Conexion();
+            Connection cone = con.getConec();
+            ps = cone.prepareStatement("SELECT C.Codigo, c.Cod_Producto, c.Cod_Insumo, i.Nombre, c.Cantidad \n"
+                    + "FROM softfood.contiene c INNER JOIN softfood.insumo i ON c.Cod_Insumo=i.Codigo "
+                    + where);
+
+            rs = ps.executeQuery();
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int cantidadColumnas = rsmd.getColumnCount();
+
+            modelo.addColumn("Codigo");
+            modelo.addColumn("Cod_Producto");
+            modelo.addColumn("Cod_insumo");
+            modelo.addColumn("Nombre Insumo");
+            modelo.addColumn("Cantidad");
+
+            while (rs.next()) {
+                Object[] filas = new Object[cantidadColumnas];
+
+                for (int i = 0; i < cantidadColumnas; i++) {
+                    filas[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(filas);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+    }
+
     public void limpiar() {
         nombreText.setText("");
         valorText.setText("");
-        codigoText.setText("" + idAutoincrementado() + "");
+        codigoText.setText("" + idAutoincrementado("producto") + "");
         textAgregarCantidadIsnumo.setText("");
         textAgregarIsnumo.setText("");
+        codigoproductotext.setText("");
+        nombreInsumoText.setText("");
+        cantidadInsumoText.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -100,11 +150,21 @@ public class Producto extends javax.swing.JFrame {
         textAgregarIsnumo = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         textAgregarCantidadIsnumo = new javax.swing.JTextField();
-        jBnModificarInsumos = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableProducto = new javax.swing.JTable();
         jBCargar = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableInsumoContenido = new javax.swing.JTable();
+        jBCargarInsumoProducto = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        codigoproductotext = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        nombreInsumoText = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        cantidadInsumoText = new javax.swing.JTextField();
+        btnModificarInsumoProducto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -180,13 +240,6 @@ public class Producto extends javax.swing.JFrame {
 
         jLabel7.setText("Cantidad:");
 
-        jBnModificarInsumos.setText("Modificar Insumos");
-        jBnModificarInsumos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBnModificarInsumosActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanelAgregarInsumosLayout = new javax.swing.GroupLayout(jPanelAgregarInsumos);
         jPanelAgregarInsumos.setLayout(jPanelAgregarInsumosLayout);
         jPanelAgregarInsumosLayout.setHorizontalGroup(
@@ -194,21 +247,19 @@ public class Producto extends javax.swing.JFrame {
             .addGroup(jPanelAgregarInsumosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelAgregarInsumosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel6))
+                .addGap(32, 32, 32)
+                .addGroup(jPanelAgregarInsumosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelAgregarInsumosLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                        .addGap(10, 10, 10)
                         .addComponent(jBnAgregarInsumo)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBnModificarInsumos)
-                        .addGap(12, 12, 12))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanelAgregarInsumosLayout.createSequentialGroup()
                         .addGroup(jPanelAgregarInsumosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel6))
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanelAgregarInsumosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textAgregarIsnumo)
-                            .addComponent(textAgregarCantidadIsnumo))))
-                .addContainerGap())
+                            .addComponent(textAgregarIsnumo, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(textAgregarCantidadIsnumo))
+                        .addContainerGap())))
         );
         jPanelAgregarInsumosLayout.setVerticalGroup(
             jPanelAgregarInsumosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,9 +273,7 @@ public class Producto extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(textAgregarCantidadIsnumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelAgregarInsumosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBnAgregarInsumo)
-                    .addComponent(jBnModificarInsumos))
+                .addComponent(jBnAgregarInsumo)
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -292,7 +341,7 @@ public class Producto extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(jPanelAgregarInsumos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -360,12 +409,124 @@ public class Producto extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 197, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
                 .addComponent(jBCargar)
                 .addGap(32, 32, 32))
         );
 
         jTabbedPane1.addTab("MOSTRAR PRODUCTOS", jPanel2);
+
+        jTableInsumoContenido.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Codigo", "Cod_Producto", "Cod_Insumo", "Nombre insumo", "Cantidad"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableInsumoContenido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableInsumoContenidoMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTableInsumoContenido);
+
+        jBCargarInsumoProducto.setText("Cargar");
+        jBCargarInsumoProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCargarInsumoProductoActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Codigo producto:");
+
+        jLabel9.setText("Nombre Insumo:");
+
+        jLabel10.setText("Cantidad Insumo:");
+
+        btnModificarInsumoProducto.setText("Modificar");
+        btnModificarInsumoProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarInsumoProductoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(53, 53, 53)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(2, 2, 2)
+                                        .addComponent(jLabel8))
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(nombreInsumoText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                                    .addComponent(codigoproductotext, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cantidadInsumoText)))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(94, 94, 94)
+                                .addComponent(jBCargarInsumoProducto)
+                                .addGap(60, 60, 60)
+                                .addComponent(btnModificarInsumoProducto)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(codigoproductotext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(nombreInsumoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(cantidadInsumoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBCargarInsumoProducto)
+                    .addComponent(btnModificarInsumoProducto))
+                .addContainerGap(58, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("MODIFICAR INSUMOS CONTENIDOS", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -501,12 +662,12 @@ public class Producto extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jBtnMenuActionPerformed
 
-    public int idAutoincrementado() {
+    public int idAutoincrementado(String s) {
         int idSiguiente = 0;
         Conexion con = new Conexion();
         try {
             Connection cone = con.getConec();
-            ps = cone.prepareStatement("SELECT MAX(Codigo) FROM producto;");
+            ps = cone.prepareStatement("SELECT MAX(Codigo) FROM " + s + ";");
             rs = ps.executeQuery();
             rs.next();
             idSiguiente = 1 + Integer.parseInt(rs.getString(1));
@@ -516,7 +677,6 @@ public class Producto extends javax.swing.JFrame {
         }
         return idSiguiente;
     }
-   
 
     private void cbxTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoActionPerformed
         int OpcionComboBox = cbxTipo.getSelectedIndex();
@@ -530,19 +690,21 @@ public class Producto extends javax.swing.JFrame {
     private void jBnAgregarInsumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBnAgregarInsumoActionPerformed
         //Con esta primera conexion a la BD verifico que el nombre del insumo corresponda a un insumo ya registrado
         Conexion con = new Conexion();
+        int codigoinsumo = 0;
         try {
             Connection cone = con.getConec();
             ps = cone.prepareStatement("SELECT * FROM insumo WHERE Nombre = ?");
             ps.setString(1, textAgregarIsnumo.getText());
             rs = ps.executeQuery();
             if (rs.next()) {
-
+                codigoinsumo = Integer.parseInt(rs.getString(1));
                 //Agrego los datos a la tabla contiene
                 try {
-                    ps1 = cone.prepareStatement("INSERT INTO contiene(Cod_Producto,Cod_Insumo,Cantidad) VALUES(?,?,?)");
-                    ps1.setInt(1, Integer.parseInt(codigoText.getText()));
-                    ps1.setInt(2, Integer.parseInt(rs.getString(1)));
-                    ps1.setInt(3, Integer.parseInt(textAgregarCantidadIsnumo.getText()));
+                    ps1 = cone.prepareStatement("INSERT INTO contiene(Codigo,Cod_Producto,Cod_Insumo,Cantidad) VALUES(?,?,?,?)");
+                    ps1.setInt(1, idAutoincrementado("contiene"));
+                    ps1.setInt(2, Integer.parseInt(codigoText.getText()));
+                    ps1.setInt(3, codigoinsumo);
+                    ps1.setInt(4, Integer.parseInt(textAgregarCantidadIsnumo.getText()));
 
                     int res = ps1.executeUpdate();
 
@@ -566,9 +728,60 @@ public class Producto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jBnAgregarInsumoActionPerformed
 
-    private void jBnModificarInsumosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBnModificarInsumosActionPerformed
-        
-    }//GEN-LAST:event_jBnModificarInsumosActionPerformed
+    private void jBCargarInsumoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCargarInsumoProductoActionPerformed
+        mostrarDatosInsumoContenido();
+        limpiar();
+    }//GEN-LAST:event_jBCargarInsumoProductoActionPerformed
+
+    private void jTableInsumoContenidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableInsumoContenidoMouseClicked
+        try {
+            Conexion con = new Conexion();
+            Connection cone = con.getConec();
+
+            int fila = jTableInsumoContenido.getSelectedRow();
+            String codigo = jTableInsumoContenido.getValueAt(fila, 0).toString();
+
+            ps = cone.prepareStatement("SELECT C.Codigo, c.Cod_Producto, c.Cod_Insumo, i.Nombre, c.Cantidad \n"
+                    + "FROM softfood.contiene c INNER JOIN softfood.insumo i ON c.Cod_Insumo=i.Codigo "
+                    + "WHERE c.Codigo = ?");
+            ps.setString(1, codigo);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                codigoproductotext.setText(rs.getString("Cod_Producto"));
+                nombreInsumoText.setText(rs.getString("Nombre"));
+                cantidadInsumoText.setText(rs.getString("Cantidad"));
+                codigoContiene = Integer.parseInt(rs.getString("Codigo"));
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+    }//GEN-LAST:event_jTableInsumoContenidoMouseClicked
+
+    private void btnModificarInsumoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarInsumoProductoActionPerformed
+        Conexion con = new Conexion();
+
+        try {
+            Connection cone = con.getConec();
+            ps = cone.prepareStatement("UPDATE contiene SET Cantidad=? WHERE Codigo = ?");
+            ps.setString(1, cantidadInsumoText.getText());
+            ps.setInt(2, codigoContiene);
+
+            int res = ps.executeUpdate();
+
+            if (res > 0) {
+                JOptionPane.showMessageDialog(null, "Insumo modificado");
+                limpiar();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al modificar insumo ");
+            }
+
+            cone.close();
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }//GEN-LAST:event_btnModificarInsumoProductoActionPerformed
 
     public static void main(String args[]) {
 
@@ -604,26 +817,36 @@ public class Producto extends javax.swing.JFrame {
     private javax.swing.JButton bModificar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnModificarInsumoProducto;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JTextField cantidadInsumoText;
     private javax.swing.JComboBox<String> cbxTipo;
     private javax.swing.JTextField codigoText;
+    private javax.swing.JTextField codigoproductotext;
     private javax.swing.JButton jBCargar;
+    private javax.swing.JButton jBCargarInsumoProducto;
     private javax.swing.JButton jBnAgregarInsumo;
-    private javax.swing.JButton jBnModificarInsumos;
     private javax.swing.JButton jBtnMenu;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelAgregarInsumos;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTableInsumoContenido;
     private javax.swing.JTable jTableProducto;
+    private javax.swing.JTextField nombreInsumoText;
     private javax.swing.JTextField nombreText;
     private javax.swing.JTextField textAgregarCantidadIsnumo;
     private javax.swing.JTextField textAgregarIsnumo;

@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -12,56 +14,74 @@ public class Insumo extends javax.swing.JFrame {
 
     PreparedStatement ps;
     ResultSet rs;
-   
+
     int cualusurioes;
-    
-    public Insumo(){
+
+    public Insumo() {
         initComponents();
         mostrarDatos();
+        codigoText.setText("" + idAutoincrementado() + "");
     }
-    
+
     public Insumo(int cualusuario) {
         initComponents();
         mostrarDatos();
-        this.cualusurioes=cualusuario;
+        this.cualusurioes = cualusuario;
+        codigoText.setText("" + idAutoincrementado() + "");
     }
-    
-    public void mostrarDatos(){     
+
+    public void mostrarDatos() {
         try {
             DefaultTableModel modelo = new DefaultTableModel();
             jTableInsumo.setModel(modelo);
             Conexion con = new Conexion();
             Connection cone = con.getConec();
-            
-            String sql ="SELECT Codigo,Nombre,Cantidad,Valor FROM insumo";
+
+            String sql = "SELECT Codigo,Nombre,Cantidad,Valor FROM insumo";
             ps = cone.prepareStatement(sql);
             rs = ps.executeQuery();
-            
+
             ResultSetMetaData rsmd = rs.getMetaData();
             int cantidadColumnas = rsmd.getColumnCount();
-            
+
             modelo.addColumn("Codigo");
             modelo.addColumn("Nombre");
             modelo.addColumn("Cantidad");
             modelo.addColumn("Valor");
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Object[] filas = new Object[cantidadColumnas];
-                
+
                 for (int i = 0; i < cantidadColumnas; i++) {
-                    filas[i]=rs.getObject(i+1);
+                    filas[i] = rs.getObject(i + 1);
                 }
-                modelo.addRow(filas);  
+                modelo.addRow(filas);
             }
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
     }
-    
-    public void limpiar(){
+
+    public int idAutoincrementado() {
+        int idSiguiente = 0;
+        Conexion con = new Conexion();
+        try {
+            Connection cone = con.getConec();
+            ps = cone.prepareStatement("SELECT MAX(Codigo) FROM insumo;");
+            rs = ps.executeQuery();
+            rs.next();
+            idSiguiente = 1 + Integer.parseInt(rs.getString(1));
+            return idSiguiente;
+        } catch (SQLException ex) {
+            Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return idSiguiente;
+    }
+
+    public void limpiar() {
         nombreText.setText("");
         valorText.setText("");
-        codigoText.setText("");
+        codigoText.setText("" + idAutoincrementado() + "");
         CantidadText.setText("");
     }
 
@@ -308,25 +328,23 @@ public class Insumo extends javax.swing.JFrame {
 
         Conexion con = new Conexion();
 
-        try{
+        try {
             Connection cone = con.getConec();
             ps = cone.prepareStatement("SELECT * FROM insumo  WHERE Codigo = ?");
             ps.setInt(1, Integer.parseInt(codigoText.getText()));
 
             rs = ps.executeQuery();
 
-            if(rs.next()){
+            if (rs.next()) {
                 codigoText.setText(rs.getString("Codigo"));
                 nombreText.setText(rs.getString("Nombre"));
                 CantidadText.setText(rs.getString("Cantidad"));
                 valorText.setText(rs.getString("Valor"));
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Insumo no encontrado");
                 limpiar();
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.err.println(e);
         }
     }//GEN-LAST:event_bBuscarActionPerformed
@@ -334,26 +352,25 @@ public class Insumo extends javax.swing.JFrame {
     private void bAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarActionPerformed
         Conexion con = new Conexion();
 
-        try{
+        try {
             Connection cone = con.getConec();
-            ps = cone.prepareStatement("INSERT INTO insumo (Nombre,Cantidad, Valor) VALUES(?,?,?)");
-            ps.setString(1, nombreText.getText());
-            ps.setInt(2, Integer.parseInt(CantidadText.getText()));
-            ps.setFloat(3, Float.parseFloat(valorText.getText()));
+            ps = cone.prepareStatement("INSERT INTO insumo (Codigo,Nombre,Cantidad, Valor) VALUES(?,?,?,?)");
+            ps.setInt(1, Integer.parseInt(codigoText.getText()));
+            ps.setString(2, nombreText.getText());
+            ps.setInt(3, Integer.parseInt(CantidadText.getText()));
+            ps.setFloat(4, Float.parseFloat(valorText.getText()));
 
             int res = ps.executeUpdate();
 
-            if(res > 0){
+            if (res > 0) {
                 JOptionPane.showMessageDialog(null, "Insumo Guardado");
                 limpiar();
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Error al agregar insumo ");
             }
 
             cone.close();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.err.println(e);
         }
     }//GEN-LAST:event_bAgregarActionPerformed
@@ -361,7 +378,7 @@ public class Insumo extends javax.swing.JFrame {
     private void bModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarActionPerformed
         Conexion con = new Conexion();
 
-        try{
+        try {
             Connection cone = con.getConec();
             ps = cone.prepareStatement("UPDATE insumo SET Nombre=?, Cantidad=?, Valor=? WHERE Codigo=?");
             ps.setString(1, nombreText.getText());
@@ -371,18 +388,16 @@ public class Insumo extends javax.swing.JFrame {
 
             int res = ps.executeUpdate();
 
-            if(res > 0){
+            if (res > 0) {
                 JOptionPane.showMessageDialog(null, "Insumo modificado");
                 limpiar();
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Error al modificar insumo ");
                 limpiar();
             }
 
             cone.close();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.err.println(e);
         }
     }//GEN-LAST:event_bModificarActionPerformed
@@ -390,25 +405,23 @@ public class Insumo extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         Conexion con = new Conexion();
 
-        try{
+        try {
             Connection cone = con.getConec();
             ps = cone.prepareStatement("DELETE FROM insumo WHERE Codigo=?");
             ps.setInt(1, Integer.parseInt(codigoText.getText()));
 
             int res = ps.executeUpdate();
 
-            if(res > 0){
+            if (res > 0) {
                 JOptionPane.showMessageDialog(null, "Insumo eliminado");
                 limpiar();
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Error al eliminar insumo ");
                 limpiar();
             }
 
             cone.close();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.err.println(e);
         }
 
