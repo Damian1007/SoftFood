@@ -1,7 +1,5 @@
 package softfood;
 
-import javax.swing.JOptionPane;
-
 public class Menu_Principal extends javax.swing.JFrame {
     
     public Menu_Principal() {
@@ -10,7 +8,7 @@ public class Menu_Principal extends javax.swing.JFrame {
     
     int cualusuarioes;
               
-    public Menu_Principal(int cualusuario) {
+    public Menu_Principal(int cualusuario){
         initComponents();
         this.cualusuarioes=cualusuario;
         if(cualusuario == 1){
@@ -22,7 +20,7 @@ public class Menu_Principal extends javax.swing.JFrame {
         }else{
             jLabelUsuario.setText("operario");
             btnEmpleado.setEnabled(false);
-            //btnInsumo.setEnabled(false);
+            btnInsumo.setEnabled(false);
             btnPrductos.setEnabled(false);
             btnRestaurante.setEnabled(false);
         }
@@ -163,7 +161,9 @@ public class Menu_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInsumoActionPerformed
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
-        JOptionPane . showMessageDialog ( null , "Falta programar esto" );
+        Cliente cliente = new Cliente(cualusuarioes);
+        cliente.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnClienteActionPerformed
 
     private void btnRestauranteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestauranteActionPerformed

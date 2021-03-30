@@ -2,14 +2,7 @@ package softfood;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import javax.swing.JOptionPane;
 
-/**
- *
- * @author Damian
- */
 public class Conexion {
     public static final String URL = "jdbc:mysql://localhost:3306/softfood";
     public static final String USERNAME = "root";
