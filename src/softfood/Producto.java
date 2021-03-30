@@ -115,8 +115,8 @@ public class Producto extends javax.swing.JFrame {
         nombreText.setText("");
         valorText.setText("");
         codigoText.setText("" + idAutoincrementado("producto") + "");
-        textAgregarCantidadIsnumo.setText("");
-        textAgregarIsnumo.setText("");
+        AgregarCantidadIsnumoText.setText("");
+        AgregarIsnumoText.setText("");
         codigoproductotext.setText("");
         nombreInsumoText.setText("");
         cantidadInsumoText.setText("");
@@ -147,9 +147,9 @@ public class Producto extends javax.swing.JFrame {
         jPanelAgregarInsumos = new javax.swing.JPanel();
         jBnAgregarInsumo = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        textAgregarIsnumo = new javax.swing.JTextField();
+        AgregarIsnumoText = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        textAgregarCantidadIsnumo = new javax.swing.JTextField();
+        AgregarCantidadIsnumoText = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableProducto = new javax.swing.JTable();
@@ -257,8 +257,8 @@ public class Producto extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanelAgregarInsumosLayout.createSequentialGroup()
                         .addGroup(jPanelAgregarInsumosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textAgregarIsnumo, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(textAgregarCantidadIsnumo))
+                            .addComponent(AgregarIsnumoText, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(AgregarCantidadIsnumoText))
                         .addContainerGap())))
         );
         jPanelAgregarInsumosLayout.setVerticalGroup(
@@ -267,11 +267,11 @@ public class Producto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelAgregarInsumosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(textAgregarIsnumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(AgregarIsnumoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelAgregarInsumosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(textAgregarCantidadIsnumo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(AgregarCantidadIsnumoText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jBnAgregarInsumo)
                 .addContainerGap(17, Short.MAX_VALUE))
@@ -694,7 +694,7 @@ public class Producto extends javax.swing.JFrame {
         try {
             Connection cone = con.getConec();
             ps = cone.prepareStatement("SELECT * FROM insumo WHERE Nombre = ?");
-            ps.setString(1, textAgregarIsnumo.getText());
+            ps.setString(1, AgregarIsnumoText.getText());
             rs = ps.executeQuery();
             if (rs.next()) {
                 codigoinsumo = Integer.parseInt(rs.getString(1));
@@ -704,12 +704,14 @@ public class Producto extends javax.swing.JFrame {
                     ps1.setInt(1, idAutoincrementado("contiene"));
                     ps1.setInt(2, Integer.parseInt(codigoText.getText()));
                     ps1.setInt(3, codigoinsumo);
-                    ps1.setInt(4, Integer.parseInt(textAgregarCantidadIsnumo.getText()));
+                    ps1.setInt(4, Integer.parseInt(AgregarCantidadIsnumoText.getText()));
 
                     int res = ps1.executeUpdate();
 
                     if (res > 0) {
                         JOptionPane.showMessageDialog(null, "Insumo agregado al producto");
+                        AgregarCantidadIsnumoText.setText("");
+                        AgregarIsnumoText.setText("");
                     } else {
                         JOptionPane.showMessageDialog(null, "Error al agregar insumo");
                     }
@@ -812,6 +814,8 @@ public class Producto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField AgregarCantidadIsnumoText;
+    private javax.swing.JTextField AgregarIsnumoText;
     private javax.swing.JButton bAgregar;
     private javax.swing.JButton bBuscar;
     private javax.swing.JButton bModificar;
@@ -848,8 +852,6 @@ public class Producto extends javax.swing.JFrame {
     private javax.swing.JTable jTableProducto;
     private javax.swing.JTextField nombreInsumoText;
     private javax.swing.JTextField nombreText;
-    private javax.swing.JTextField textAgregarCantidadIsnumo;
-    private javax.swing.JTextField textAgregarIsnumo;
     private javax.swing.JTextField valorText;
     // End of variables declaration//GEN-END:variables
 }

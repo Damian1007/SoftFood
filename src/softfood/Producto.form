@@ -269,8 +269,8 @@
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="textAgregarIsnumo" pref="200" max="32767" attributes="0"/>
-                                      <Component id="textAgregarCantidadIsnumo" max="32767" attributes="0"/>
+                                      <Component id="AgregarIsnumoText" pref="200" max="32767" attributes="0"/>
+                                      <Component id="AgregarCantidadIsnumoText" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -284,12 +284,12 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="textAgregarIsnumo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="AgregarIsnumoText" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="textAgregarCantidadIsnumo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="AgregarCantidadIsnumoText" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jBnAgregarInsumo" min="-2" max="-2" attributes="0"/>
@@ -312,14 +312,14 @@
                     <Property name="text" type="java.lang.String" value="Inusmo:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="textAgregarIsnumo">
+                <Component class="javax.swing.JTextField" name="AgregarIsnumoText">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel7">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Cantidad:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="textAgregarCantidadIsnumo">
+                <Component class="javax.swing.JTextField" name="AgregarCantidadIsnumoText">
                 </Component>
               </SubComponents>
             </Container>
