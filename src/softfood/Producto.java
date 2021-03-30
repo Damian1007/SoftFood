@@ -165,6 +165,7 @@ public class Producto extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         cantidadInsumoText = new javax.swing.JTextField();
         btnModificarInsumoProducto = new javax.swing.JButton();
+        btnEliminarInsumoContenido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -341,7 +342,7 @@ public class Producto extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jPanelAgregarInsumos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -409,7 +410,7 @@ public class Producto extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 197, Short.MAX_VALUE)
                 .addComponent(jBCargar)
                 .addGap(32, 32, 32))
         );
@@ -470,6 +471,13 @@ public class Producto extends javax.swing.JFrame {
             }
         });
 
+        btnEliminarInsumoContenido.setText("Eliminar");
+        btnEliminarInsumoContenido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarInsumoContenidoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -480,9 +488,9 @@ public class Producto extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(53, 53, 53)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(53, 53, 53)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addGap(2, 2, 2)
@@ -495,10 +503,11 @@ public class Producto extends javax.swing.JFrame {
                                     .addComponent(codigoproductotext, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cantidadInsumoText)))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(94, 94, 94)
                                 .addComponent(jBCargarInsumoProducto)
-                                .addGap(60, 60, 60)
-                                .addComponent(btnModificarInsumoProducto)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                                .addComponent(btnModificarInsumoProducto)
+                                .addGap(45, 45, 45)
+                                .addComponent(btnEliminarInsumoContenido)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -522,11 +531,12 @@ public class Producto extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBCargarInsumoProducto)
-                    .addComponent(btnModificarInsumoProducto))
-                .addContainerGap(58, Short.MAX_VALUE))
+                    .addComponent(btnModificarInsumoProducto)
+                    .addComponent(btnEliminarInsumoContenido))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("MODIFICAR INSUMOS CONTENIDOS", jPanel3);
+        jTabbedPane1.addTab("MODIFICAR INSUMOS", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -785,6 +795,30 @@ public class Producto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnModificarInsumoProductoActionPerformed
 
+    private void btnEliminarInsumoContenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarInsumoContenidoActionPerformed
+        Conexion con = new Conexion();
+
+        try {
+            Connection cone = con.getConec();
+            ps = cone.prepareStatement("DELETE FROM contiene WHERE Codigo=?");
+            ps.setInt(1, codigoContiene);
+
+            int res = ps.executeUpdate();
+
+            if (res > 0) {
+                JOptionPane.showMessageDialog(null, "Insumo eliminado");
+                limpiar();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al eliminar insumo ");
+                limpiar();
+            }
+
+            cone.close();
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }//GEN-LAST:event_btnEliminarInsumoContenidoActionPerformed
+
     public static void main(String args[]) {
 
         try {
@@ -820,6 +854,7 @@ public class Producto extends javax.swing.JFrame {
     private javax.swing.JButton bBuscar;
     private javax.swing.JButton bModificar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnEliminarInsumoContenido;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificarInsumoProducto;
     private javax.swing.ButtonGroup buttonGroup1;
