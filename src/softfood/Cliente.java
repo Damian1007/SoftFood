@@ -1,6 +1,7 @@
 package softfood;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -17,6 +18,7 @@ public class Cliente extends javax.swing.JFrame {
     
     int cualusurioes;
     static Vector carrito = new Vector();
+    float valorFinal = 0;
 
     public Cliente() {
         initComponents();
@@ -126,6 +128,8 @@ public class Cliente extends javax.swing.JFrame {
         nombreText.setText("");
         telefonoText.setText("");
         mesaText.setText("");
+        CodProd.setText("");
+        valorProd.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -157,13 +161,15 @@ public class Cliente extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jBAgregarP = new javax.swing.JButton();
         jBTerminarP = new javax.swing.JButton();
-        codProd = new javax.swing.JTextField();
         cedulaCli = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         fechaLabel = new javax.swing.JLabel();
         jBCargarP = new javax.swing.JButton();
         jBorrarP = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
+        CodProd = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        valorProd = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCliente = new javax.swing.JTable();
@@ -298,7 +304,7 @@ public class Cliente extends javax.swing.JFrame {
                     .addComponent(btnLimpiar))
                 .addGap(28, 28, 28)
                 .addComponent(jBtnMenu1)
-                .addContainerGap(137, Short.MAX_VALUE))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("CRUD CLIENTE", jPanel1);
@@ -318,6 +324,11 @@ public class Cliente extends javax.swing.JFrame {
                 "Codigo", "Nombre", "Valor"
             }
         ));
+        jTableProducto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableProductoMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTableProducto);
 
         jLabel7.setText("Codigo Producto");
@@ -358,6 +369,8 @@ public class Cliente extends javax.swing.JFrame {
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Productos Disponibles");
 
+        jLabel11.setText("Valor Producto");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -367,24 +380,26 @@ public class Cliente extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cedulaCli, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(codProd)
-                            .addComponent(fechaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jBorrarP)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                         .addComponent(jBAgregarP)
                         .addGap(54, 54, 54)
                         .addComponent(jBTerminarP)
-                        .addGap(43, 43, 43))))
+                        .addGap(43, 43, 43))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(96, 96, 96)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(fechaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                            .addComponent(CodProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cedulaCli, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(valorProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -410,15 +425,19 @@ public class Cliente extends javax.swing.JFrame {
                 .addComponent(jBCargarP)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fechaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(codProd, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(CodProd, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                    .addComponent(valorProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cedulaCli, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -468,7 +487,7 @@ public class Cliente extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
                 .addComponent(jBCargar)
-                .addGap(0, 119, Short.MAX_VALUE))
+                .addGap(0, 128, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("MOSTRAR CLIENTE", jPanel2);
@@ -617,17 +636,74 @@ public class Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jBCargarPActionPerformed
 
     private void jBAgregarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarPActionPerformed
-        carrito.addElement(codProd.getText());
-        JOptionPane.showMessageDialog(this, "En construccion");
+        if(CodProd.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "No ha seleccionado ningun Producto");
+        }else{
+            carrito.addElement(CodProd.getText());
+            valorFinal = valorFinal + Float.valueOf(valorProd.getText());
+            JOptionPane.showMessageDialog(this, "Producto Agregado a la Orden");
+            System.out.println(valorFinal);
+        }
     }//GEN-LAST:event_jBAgregarPActionPerformed
 
     private void jBorrarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBorrarPActionPerformed
-        JOptionPane.showMessageDialog(this, "En construccion");
+        carrito.clear();
+        valorFinal = 0;
+        JOptionPane.showMessageDialog(this, "Orden Borrada");
     }//GEN-LAST:event_jBorrarPActionPerformed
 
     private void jBTerminarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTerminarPActionPerformed
-        JOptionPane.showMessageDialog(this, "En construccion");
+        Conexion con = new Conexion();
+        
+        try{
+            Connection cone = con.getConec();
+            ps = cone.prepareStatement("INSERT INTO pedido (Codigo,Fecha,Cedula_Cliente,Restaurante,Valor_Total) VALUES(?,?,?,?,?)");
+            ps.setInt(1, 1);
+            ps.setDate(2, Date.valueOf(fechaLabel.getText()));
+            ps.setInt(3, Integer.valueOf((String) cedulaCli.getSelectedItem()));
+            ps.setInt(4, 0);
+            ps.setFloat(5, valorFinal);
+
+            int res = ps.executeUpdate();
+
+            if (res > 0) {
+                JOptionPane.showMessageDialog(null, "Pedido Registrado");
+                limpiar();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al Registrar Pedido");
+            }
+
+            cone.close();
+            }catch (Exception e) {
+               System.err.println(e);
+            }
     }//GEN-LAST:event_jBTerminarPActionPerformed
+
+    private void jTableProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProductoMouseClicked
+        try {
+            Conexion con = new Conexion();
+            Connection cone = con.getConec();
+
+            int fila = jTableProducto.getSelectedRow();
+            String codigo = jTableProducto.getValueAt(fila, 0).toString();
+            String valor = jTableProducto.getValueAt(fila, 2).toString();
+
+            ps = cone.prepareStatement("SELECT Codigo, Valor \n" +
+                                       "FROM producto \n" +
+                                       "WHERE Codigo = ?");
+            ps.setInt(1, Integer.parseInt(codigo));
+            //ps.setFloat(2, Float.valueOf(valor));
+            rs = ps.executeQuery();
+
+            while(rs.next()) {
+                CodProd.setText(rs.getString("codigo"));
+                valorProd.setText(rs.getString("valor"));
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+    }//GEN-LAST:event_jTableProductoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -665,6 +741,7 @@ public class Cliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel CodProd;
     private javax.swing.JButton Eliminar;
     private javax.swing.JButton bAgregar;
     private javax.swing.JButton bBuscar;
@@ -672,7 +749,6 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JComboBox<String> cedulaCli;
     private javax.swing.JTextField cedulaText;
-    private javax.swing.JTextField codProd;
     private javax.swing.JLabel fechaLabel;
     private javax.swing.JButton jBAgregarP;
     private javax.swing.JButton jBCargar;
@@ -682,6 +758,7 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JButton jBtnMenu1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -701,5 +778,6 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JTextField mesaText;
     private javax.swing.JTextField nombreText;
     private javax.swing.JTextField telefonoText;
+    private javax.swing.JLabel valorProd;
     // End of variables declaration//GEN-END:variables
 }

@@ -84,18 +84,15 @@
                               <Component id="jBtnMenu" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jLabel5" min="-2" pref="176" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="jPanelAgregarInsumos" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="rSDateChooser3" min="-2" max="-2" attributes="0"/>
-                          </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel2" alignment="0" min="-2" pref="69" max="-2" attributes="0"/>
+                                  <Component id="jPanelAgregarInsumos" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="326" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="rSDateChooser3" min="-2" pref="240" max="-2" attributes="0"/>
                                   <Component id="rSDateChooser2" min="-2" max="-2" attributes="0"/>
                                   <Component id="rSDateChooser1" min="-2" max="-2" attributes="0"/>
                               </Group>

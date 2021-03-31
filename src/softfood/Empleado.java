@@ -124,12 +124,6 @@ public class Empleado extends javax.swing.JFrame {
             }
         });
 
-        Direcciontext.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DirecciontextActionPerformed(evt);
-            }
-        });
-
         jLabel6.setText("Cargo:");
 
         jLabel7.setText("Direcciòn:");
@@ -480,10 +474,6 @@ public class Empleado extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden");
         }
     }//GEN-LAST:event_bAgregarActionPerformed
-
-    private void DirecciontextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DirecciontextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DirecciontextActionPerformed
 
     private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
         bAgregar.setEnabled(false);
