@@ -12,10 +12,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Cliente extends javax.swing.JFrame {
-    
+
     PreparedStatement ps;
     ResultSet rs;
-    
+
     int cualusurioes;
     static Vector carrito = new Vector();
     float valorFinal = 0;
@@ -27,104 +27,104 @@ public class Cliente extends javax.swing.JFrame {
         mostrarDatosP();
         mostrarCedulas();
     }
-    
+
     public Cliente(int cualusuario) {
         initComponents();
         mostrarDatos();
         mostrarFecha();
         mostrarDatosP();
         mostrarCedulas();
-        this.cualusurioes=cualusuario;
+        this.cualusurioes = cualusuario;
     }
-    
-    public void mostrarDatos(){     
+
+    public void mostrarDatos() {
         try {
             DefaultTableModel modelo = new DefaultTableModel();
             jTableCliente.setModel(modelo);
             Conexion con = new Conexion();
             Connection cone = con.getConec();
-            
-            String sql ="SELECT Cedula,Nombre,Telefono,Mesa FROM cliente";
+
+            String sql = "SELECT Cedula,Nombre,Telefono,Mesa FROM cliente";
             ps = cone.prepareStatement(sql);
             rs = ps.executeQuery();
-            
+
             ResultSetMetaData rsmd = rs.getMetaData();
             int cantidadColumnas = rsmd.getColumnCount();
-            
+
             modelo.addColumn("Cedula");
             modelo.addColumn("Nombre");
             modelo.addColumn("Telefono");
             modelo.addColumn("Mesa");
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Object[] filas = new Object[cantidadColumnas];
-                
+
                 for (int i = 0; i < cantidadColumnas; i++) {
-                    filas[i]=rs.getObject(i+1);
+                    filas[i] = rs.getObject(i + 1);
                 }
-                modelo.addRow(filas);  
-            }  
-        }catch (SQLException ex) {
-           System.out.println(ex.toString());
+                modelo.addRow(filas);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
         }
     }
-    
-    public void mostrarDatosP(){     
+
+    public void mostrarDatosP() {
         try {
             DefaultTableModel modelo = new DefaultTableModel();
             jTableProducto.setModel(modelo);
             Conexion con = new Conexion();
             Connection cone = con.getConec();
-            
-            String sql ="SELECT Codigo,Nombre,Valor FROM producto";
+
+            String sql = "SELECT Codigo,Nombre,Valor FROM producto";
             ps = cone.prepareStatement(sql);
             rs = ps.executeQuery();
-            
+
             ResultSetMetaData rsmd = rs.getMetaData();
             int cantidadColumnas = rsmd.getColumnCount();
-            
+
             modelo.addColumn("Codigo");
             modelo.addColumn("Nombre");
             modelo.addColumn("Valor");
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 Object[] filas = new Object[cantidadColumnas];
-                
+
                 for (int i = 0; i < cantidadColumnas; i++) {
-                    filas[i]=rs.getObject(i+1);
+                    filas[i] = rs.getObject(i + 1);
                 }
-                modelo.addRow(filas);      
+                modelo.addRow(filas);
             }
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
     }
-    
-    public void mostrarFecha(){
+
+    public void mostrarFecha() {
         Calendar c = Calendar.getInstance();
-        
-        String fecha = ""+ Integer.toString(c.get(Calendar.YEAR)) +"-"+ Integer.toString(c.get(Calendar.MONTH)) +"-"+ Integer.toString(c.get(Calendar.DATE)) +"";
+
+        String fecha = "" + Integer.toString(c.get(Calendar.YEAR)) + "-" + Integer.toString(c.get(Calendar.MONTH)) + "-" + Integer.toString(c.get(Calendar.DATE)) + "";
         fechaLabel.setText(fecha);
     }
-    
-    public void mostrarCedulas(){
-        try{
+
+    public void mostrarCedulas() {
+        try {
             Conexion con = new Conexion();
             Connection cone = con.getConec();
 
             String sql = "SELECT Cedula FROM cliente";
             ps = cone.prepareStatement(sql);
             rs = ps.executeQuery();
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 cedulaCli.addItem(rs.getString(1));
             }
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
     }
-    
-    public void limpiar(){
+
+    public void limpiar() {
         nombreText.setText("");
         telefonoText.setText("");
         mesaText.setText("");
@@ -504,12 +504,13 @@ public class Cliente extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarActionPerformed
         Conexion con = new Conexion();
 
-        try{
+        try {
             Connection cone = con.getConec();
             ps = cone.prepareStatement("INSERT INTO cliente (Cedula,Nombre,Telefono,Mesa) VALUES(?,?,?,?)");
             ps.setInt(1, Integer.parseInt(cedulaText.getText()));
@@ -519,17 +520,15 @@ public class Cliente extends javax.swing.JFrame {
 
             int res = ps.executeUpdate();
 
-            if(res > 0){
+            if (res > 0) {
                 JOptionPane.showMessageDialog(null, "Cliente Guardado");
                 limpiar();
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Error al agregar Cliente ");
             }
 
             cone.close();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.err.println(e);
         }
     }//GEN-LAST:event_bAgregarActionPerformed
@@ -537,7 +536,7 @@ public class Cliente extends javax.swing.JFrame {
     private void bModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarActionPerformed
         Conexion con = new Conexion();
 
-        try{
+        try {
             Connection cone = con.getConec();
             ps = cone.prepareStatement("UPDATE cliente SET Nombre=?, Telefono=?, Mesa=? WHERE Cedula=?");
             ps.setString(1, nombreText.getText());
@@ -546,18 +545,16 @@ public class Cliente extends javax.swing.JFrame {
 
             int res = ps.executeUpdate();
 
-            if(res > 0){
+            if (res > 0) {
                 JOptionPane.showMessageDialog(null, "Cliente Modificado");
                 limpiar();
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Error al Modificar Cliente ");
                 limpiar();
             }
 
             cone.close();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.err.println(e);
         }
     }//GEN-LAST:event_bModificarActionPerformed
@@ -565,25 +562,23 @@ public class Cliente extends javax.swing.JFrame {
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         Conexion con = new Conexion();
 
-        try{
+        try {
             Connection cone = con.getConec();
             ps = cone.prepareStatement("DELETE FROM cliente WHERE Cedula=?");
             ps.setFloat(1, Float.parseFloat(cedulaText.getText()));
 
             int res = ps.executeUpdate();
 
-            if(res > 0){
+            if (res > 0) {
                 JOptionPane.showMessageDialog(null, "Cliente eliminado");
                 limpiar();
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Error al Eliminar Cliente ");
                 limpiar();
             }
 
             cone.close();
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.err.println(e);
         }
     }//GEN-LAST:event_EliminarActionPerformed
@@ -608,25 +603,23 @@ public class Cliente extends javax.swing.JFrame {
 
         Conexion con = new Conexion();
 
-        try{
+        try {
             Connection cone = con.getConec();
             ps = cone.prepareStatement("SELECT * FROM cliente  WHERE Cedula = ?");
             ps.setInt(1, Integer.parseInt(cedulaText.getText()));
 
             rs = ps.executeQuery();
 
-            if(rs.next()){
+            if (rs.next()) {
                 cedulaText.setText(rs.getString("Cedula"));
                 nombreText.setText(rs.getString("Nombre"));
                 telefonoText.setText(rs.getString("Telefono"));
                 mesaText.setText(rs.getString("Mesa"));
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Cliente no Encontrado");
                 limpiar();
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.err.println(e);
         }
     }//GEN-LAST:event_bBuscarActionPerformed
@@ -636,9 +629,9 @@ public class Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jBCargarPActionPerformed
 
     private void jBAgregarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarPActionPerformed
-        if(CodProd.getText().isEmpty()){
+        if (CodProd.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "No ha seleccionado ningun Producto");
-        }else{
+        } else {
             carrito.addElement(CodProd.getText());
             valorFinal = valorFinal + Float.valueOf(valorProd.getText());
             JOptionPane.showMessageDialog(this, "Producto Agregado a la Orden");
@@ -654,8 +647,8 @@ public class Cliente extends javax.swing.JFrame {
 
     private void jBTerminarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTerminarPActionPerformed
         Conexion con = new Conexion();
-        
-        try{
+
+        try {
             Connection cone = con.getConec();
             ps = cone.prepareStatement("INSERT INTO pedido (Codigo,Fecha,Cedula_Cliente,Restaurante,Valor_Total) VALUES(?,?,?,?,?)");
             ps.setInt(1, 1);
@@ -674,9 +667,9 @@ public class Cliente extends javax.swing.JFrame {
             }
 
             cone.close();
-            }catch (Exception e) {
-               System.err.println(e);
-            }
+        } catch (Exception e) {
+            System.err.println(e);
+        }
     }//GEN-LAST:event_jBTerminarPActionPerformed
 
     private void jTableProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProductoMouseClicked
@@ -688,14 +681,14 @@ public class Cliente extends javax.swing.JFrame {
             String codigo = jTableProducto.getValueAt(fila, 0).toString();
             String valor = jTableProducto.getValueAt(fila, 2).toString();
 
-            ps = cone.prepareStatement("SELECT Codigo, Valor \n" +
-                                       "FROM producto \n" +
-                                       "WHERE Codigo = ?");
+            ps = cone.prepareStatement("SELECT Codigo, Valor \n"
+                    + "FROM producto \n"
+                    + "WHERE Codigo = ?");
             ps.setInt(1, Integer.parseInt(codigo));
             //ps.setFloat(2, Float.valueOf(valor));
             rs = ps.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 CodProd.setText(rs.getString("codigo"));
                 valorProd.setText(rs.getString("valor"));
             }

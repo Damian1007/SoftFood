@@ -221,7 +221,7 @@ public class Producto extends javax.swing.JFrame {
             }
         });
 
-        cbxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "NO PREPARADA", "PREPARADA" }));
+        cbxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NO PREPARADA", "PREPARADA" }));
         cbxTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxTipoActionPerformed(evt);
@@ -690,7 +690,7 @@ public class Producto extends javax.swing.JFrame {
 
     private void cbxTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoActionPerformed
         int OpcionComboBox = cbxTipo.getSelectedIndex();
-        if (OpcionComboBox == 2) {
+        if (OpcionComboBox == 1) {
             jPanelAgregarInsumos.setVisible(true);
         } else {
             jPanelAgregarInsumos.setVisible(false);

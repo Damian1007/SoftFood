@@ -1,10 +1,13 @@
 package softfood;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -352,13 +355,16 @@ public class Insumo extends javax.swing.JFrame {
     private void bAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarActionPerformed
         Conexion con = new Conexion();
 
+        LocalDate fecha = LocalDate.now();
+        
         try {
             Connection cone = con.getConec();
-            ps = cone.prepareStatement("INSERT INTO insumo (Codigo,Nombre,Cantidad, Valor) VALUES(?,?,?,?)");
+            ps = cone.prepareStatement("INSERT INTO insumo (Codigo,Nombre,Cantidad,Valor,Fecha_Compra) VALUES(?,?,?,?,?)");
             ps.setInt(1, Integer.parseInt(codigoText.getText()));
             ps.setString(2, nombreText.getText());
             ps.setInt(3, Integer.parseInt(CantidadText.getText()));
             ps.setFloat(4, Float.parseFloat(valorText.getText()));
+            ps.setDate(5, Date.valueOf(fecha));
 
             int res = ps.executeUpdate();
 
