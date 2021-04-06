@@ -16,10 +16,11 @@ public class Reportes extends javax.swing.JFrame {
     ResultSet rs, rs1;
 
     int cualusurioes = 1;
+    int restaurante;
 
     public Reportes() {
         initComponents();
-        
+        this.restaurante = restaurante;
     }
 
     
@@ -199,7 +200,7 @@ public class Reportes extends javax.swing.JFrame {
     }//GEN-LAST:event_jBCargarActionPerformed
 
     private void jBtnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnMenuActionPerformed
-        Menu_Principal menu = new Menu_Principal(cualusurioes);
+        Menu_Principal menu = new Menu_Principal(cualusurioes, restaurante);
         menu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jBtnMenuActionPerformed

@@ -17,6 +17,7 @@ public class Cliente extends javax.swing.JFrame {
     ResultSet rs;
 
     int cualusurioes;
+    int restaurante;
     static Vector carrito = new Vector();
     float valorFinal = 0;
 
@@ -28,13 +29,14 @@ public class Cliente extends javax.swing.JFrame {
         mostrarCedulas();
     }
 
-    public Cliente(int cualusuario) {
+    public Cliente(int cualusuario, int restaurante) {
         initComponents();
         mostrarDatos();
         mostrarFecha();
         mostrarDatosP();
         mostrarCedulas();
         this.cualusurioes = cualusuario;
+        this.restaurante = restaurante;
     }
 
     public void mostrarDatos() {
@@ -589,7 +591,7 @@ public class Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void jBtnMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnMenu1ActionPerformed
-        Menu_Principal menu = new Menu_Principal(cualusurioes);
+        Menu_Principal menu = new Menu_Principal(cualusurioes, restaurante);
         menu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jBtnMenu1ActionPerformed
@@ -654,7 +656,7 @@ public class Cliente extends javax.swing.JFrame {
             ps.setInt(1, 1);
             ps.setDate(2, Date.valueOf(fechaLabel.getText()));
             ps.setInt(3, Integer.valueOf((String) cedulaCli.getSelectedItem()));
-            ps.setInt(4, 0);
+            ps.setInt(4, restaurante);
             ps.setFloat(5, valorFinal);
 
             int res = ps.executeUpdate();

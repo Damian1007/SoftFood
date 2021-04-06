@@ -16,6 +16,7 @@ public class Restaurante extends javax.swing.JFrame {
     ResultSet rs;
 
     int cualusurioes;
+    int restaurante;
 
     public Restaurante() {
         initComponents();
@@ -23,10 +24,11 @@ public class Restaurante extends javax.swing.JFrame {
         codigoText.setText("" + idAutoincrementado() + "");
     }
 
-    public Restaurante(int cualusuario) {
+    public Restaurante(int cualusuario, int restaurante) {
         initComponents();
         mostrarDatos();
         this.cualusurioes = cualusuario;
+        this.restaurante = restaurante;
         codigoText.setText("" + idAutoincrementado() + "");
     }
 
@@ -434,7 +436,7 @@ public class Restaurante extends javax.swing.JFrame {
     }//GEN-LAST:event_jBCargarActionPerformed
 
     private void jBtnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnMenuActionPerformed
-        Menu_Principal menu = new Menu_Principal(cualusurioes);
+        Menu_Principal menu = new Menu_Principal(cualusurioes, restaurante);
         menu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jBtnMenuActionPerformed

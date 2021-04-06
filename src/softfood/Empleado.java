@@ -14,16 +14,18 @@ public class Empleado extends javax.swing.JFrame {
     ResultSet rs;
 
     int cualusurioes;
+    int restaurante;
 
     public Empleado() {
         initComponents();
         mostrarDatos();
     }
 
-    public Empleado(int cualusuario) {
+    public Empleado(int cualusuario, int restaurante) {
         initComponents();
         mostrarDatos();
         this.cualusurioes = cualusuario;
+        this.restaurante = restaurante;
     }
 
     public void mostrarDatos() {
@@ -508,7 +510,7 @@ public class Empleado extends javax.swing.JFrame {
     }//GEN-LAST:event_bBuscarActionPerformed
 
     private void jBtnMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnMenu1ActionPerformed
-        Menu_Principal menu = new Menu_Principal(cualusurioes);
+        Menu_Principal menu = new Menu_Principal(cualusurioes, restaurante);
         menu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jBtnMenu1ActionPerformed

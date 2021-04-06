@@ -16,7 +16,7 @@ public class Producto extends javax.swing.JFrame {
     ResultSet rs, rs1;
 
     int cualusurioes = 1;
-
+    int restaurante;
     int codigoContiene = 0;
 
     public Producto() {
@@ -27,11 +27,12 @@ public class Producto extends javax.swing.JFrame {
         codigoText.setText("" + idAutoincrementado("producto") + "");
     }
 
-    public Producto(int cualusuario) {
+    public Producto(int cualusuario, int restaurante) {
         initComponents();
         mostrarDatos();
         mostrarDatosInsumoContenido();
         this.cualusurioes = cualusuario;
+        this.restaurante = restaurante;
         jPanelAgregarInsumos.setVisible(false);
         codigoText.setText("" + idAutoincrementado("producto") + "");
     }
@@ -667,7 +668,7 @@ public class Producto extends javax.swing.JFrame {
     }//GEN-LAST:event_jBCargarActionPerformed
 
     private void jBtnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnMenuActionPerformed
-        Menu_Principal menu = new Menu_Principal(cualusurioes);
+        Menu_Principal menu = new Menu_Principal(cualusurioes, restaurante);
         menu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jBtnMenuActionPerformed

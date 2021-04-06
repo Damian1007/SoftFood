@@ -7,10 +7,12 @@ public class Menu_Principal extends javax.swing.JFrame {
     }
     
     int cualusuarioes;
+    int restaurante;
               
-    public Menu_Principal(int cualusuario){
+    public Menu_Principal(int cualusuario, int restaurante){
         initComponents();
         this.cualusuarioes=cualusuario;
+        this.restaurante = restaurante;
         if(cualusuario == 1){
             jLabelUsuario.setText("Administrador");
         }else if(cualusuario == 2){
@@ -143,31 +145,31 @@ public class Menu_Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadoActionPerformed
-        Empleado empleado = new Empleado(cualusuarioes);
+        Empleado empleado = new Empleado(cualusuarioes, restaurante);
         empleado.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnEmpleadoActionPerformed
 
     private void btnPrductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrductosActionPerformed
-       Producto producto = new Producto(cualusuarioes);
+       Producto producto = new Producto(cualusuarioes, restaurante);
        producto.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_btnPrductosActionPerformed
 
     private void btnInsumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsumoActionPerformed
-        Insumo insumo = new Insumo(cualusuarioes);
+        Insumo insumo = new Insumo(cualusuarioes, restaurante);
         insumo.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnInsumoActionPerformed
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
-        Cliente cliente = new Cliente(cualusuarioes);
+        Cliente cliente = new Cliente(cualusuarioes, restaurante);
         cliente.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnClienteActionPerformed
 
     private void btnRestauranteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestauranteActionPerformed
-        Restaurante restaurante = new Restaurante(cualusuarioes);
+        Restaurante restaurante = new Restaurante(cualusuarioes, this.restaurante);
         restaurante.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRestauranteActionPerformed

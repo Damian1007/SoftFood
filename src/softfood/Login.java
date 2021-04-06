@@ -11,6 +11,7 @@ public class Login extends javax.swing.JFrame {
     ResultSet rs;
     
     int cualusuarioes = 0;
+    int restaurante;
     
     public Login() {
         initComponents();
@@ -85,7 +86,29 @@ public class Login extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    public void extraerRestaurante(){
+        Conexion con = new Conexion();
+        
+        try{
+            Connection cone = con.getConec();
+            ps = cone.prepareStatement("SELECT * FROM empleado WHERE Usuario = ?");
+            ps.setString(1,Usuariotext.getText());
+            rs = ps.executeQuery();
+            
+            if(rs.next()){
+                this.restaurante = rs.getInt(6);
+            }
+            
+        cone.close();
+        }
+        catch(Exception e){
+            System.err.println(e);
+        }
+        
+        
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Conexion con = new Conexion();
 
@@ -110,7 +133,7 @@ public class Login extends javax.swing.JFrame {
                 }
                                
                if(valorPass.equals(rs.getString(9))){
-                   Menu_Principal menu = new Menu_Principal(cualusuarioes);
+                   Menu_Principal menu = new Menu_Principal(cualusuarioes, restaurante);
                    menu.setVisible(true);
                    this.dispose();
                }else{
@@ -120,11 +143,14 @@ public class Login extends javax.swing.JFrame {
             else {
                 JOptionPane . showMessageDialog (null , "Usuario no encontrado " );
             }
-
+            
+        cone.close();
         }
         catch(Exception e){
             System.err.println(e);
         }
+        
+        
             
     }//GEN-LAST:event_jButton1ActionPerformed
 
