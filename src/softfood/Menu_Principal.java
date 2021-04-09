@@ -13,6 +13,7 @@ public class Menu_Principal extends javax.swing.JFrame {
         initComponents();
         this.cualusuarioes=cualusuario;
         this.restaurante = restaurante;
+        
         if(cualusuario == 1){
             jLabelUsuario.setText("Administrador");
         }else if(cualusuario == 2){

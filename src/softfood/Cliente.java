@@ -6,8 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,7 +22,11 @@ public class Cliente extends javax.swing.JFrame {
     int cualusurioes;
     int restaurante;
     static Vector carrito = new Vector();
+    static Vector cant = new Vector();
     float valorFinal = 0;
+    int siguiente1;
+    int siguiente2;
+
 
     public Cliente() {
         initComponents();
@@ -103,10 +110,9 @@ public class Cliente extends javax.swing.JFrame {
     }
 
     public void mostrarFecha() {
-        Calendar c = Calendar.getInstance();
+        LocalDate fecha = LocalDate.now();
 
-        String fecha = "" + Integer.toString(c.get(Calendar.YEAR)) + "-" + Integer.toString(c.get(Calendar.MONTH)) + "-" + Integer.toString(c.get(Calendar.DATE)) + "";
-        fechaLabel.setText(fecha);
+        fechaLabel.setText(Date.valueOf(fecha).toString());
     }
 
     public void mostrarCedulas() {
@@ -125,8 +131,25 @@ public class Cliente extends javax.swing.JFrame {
             System.out.println(ex.toString());
         }
     }
+    
+    public int idAutoincrementado(String s) {
+        int idSiguiente = 0;
+        Conexion con = new Conexion();
+        try {
+            Connection cone = con.getConec();
+            ps = cone.prepareStatement("SELECT MAX(Codigo) FROM " + s + ";");
+            rs = ps.executeQuery();
+            rs.next();
+            idSiguiente = 1 + Integer.parseInt(rs.getString(1));
+            return idSiguiente;
+        } catch (SQLException ex) {
+            Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return idSiguiente;
+    }
 
     public void limpiar() {
+        cedulaText.setText("");
         nombreText.setText("");
         telefonoText.setText("");
         mesaText.setText("");
@@ -171,7 +194,9 @@ public class Cliente extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         CodProd = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         valorProd = new javax.swing.JLabel();
+        cantidadProd = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCliente = new javax.swing.JTable();
@@ -306,7 +331,7 @@ public class Cliente extends javax.swing.JFrame {
                     .addComponent(btnLimpiar))
                 .addGap(28, 28, 28)
                 .addComponent(jBtnMenu1)
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("CRUD CLIENTE", jPanel1);
@@ -373,6 +398,8 @@ public class Cliente extends javax.swing.JFrame {
 
         jLabel11.setText("Valor Producto");
 
+        jLabel12.setText("Cantidad Producto");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -394,27 +421,28 @@ public class Cliente extends javax.swing.JFrame {
                             .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(35, 35, 35)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(fechaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
                             .addComponent(CodProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cedulaCli, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(valorProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(valorProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cantidadProd))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(164, 164, 164)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(222, 222, 222)
-                        .addComponent(jBCargarP)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(125, 125, 125)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBCargarP)
+                .addGap(230, 230, 230))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(175, 175, 175)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -422,10 +450,10 @@ public class Cliente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBCargarP)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -437,9 +465,15 @@ public class Cliente extends javax.swing.JFrame {
                     .addComponent(CodProd, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                    .addComponent(valorProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(valorProd, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cantidadProd)))
+                .addGap(27, 27, 27)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cedulaCli, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -489,7 +523,7 @@ public class Cliente extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
                 .addComponent(jBCargar)
-                .addGap(0, 128, Short.MAX_VALUE))
+                .addGap(0, 129, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("MOSTRAR CLIENTE", jPanel2);
@@ -540,10 +574,12 @@ public class Cliente extends javax.swing.JFrame {
 
         try {
             Connection cone = con.getConec();
-            ps = cone.prepareStatement("UPDATE cliente SET Nombre=?, Telefono=?, Mesa=? WHERE Cedula=?");
-            ps.setString(1, nombreText.getText());
-            ps.setString(2, telefonoText.getText());
-            ps.setInt(3, Integer.parseInt(mesaText.getText()));
+            ps = cone.prepareStatement("UPDATE cliente SET Cedula=?, Nombre=?, Telefono=?, Mesa=? WHERE Cedula=?");
+            ps.setInt(1, Integer.parseInt(cedulaText.getText()));
+            ps.setString(2, nombreText.getText());
+            ps.setString(3, telefonoText.getText());
+            ps.setInt(4, Integer.parseInt(mesaText.getText()));
+            ps.setString(5, cedulaText.getText());
 
             int res = ps.executeUpdate();
 
@@ -621,6 +657,7 @@ public class Cliente extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Cliente no Encontrado");
                 limpiar();
             }
+        cone.close();
         } catch (Exception e) {
             System.err.println(e);
         }
@@ -635,25 +672,30 @@ public class Cliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No ha seleccionado ningun Producto");
         } else {
             carrito.addElement(CodProd.getText());
+            cant.addElement(cantidadProd.getText());
             valorFinal = valorFinal + Float.valueOf(valorProd.getText());
+            for (int i = 0; i < carrito.size(); i++) {
+                System.out.println(carrito.elementAt(i));
+                System.out.println(cant.elementAt(i));
+            }
             JOptionPane.showMessageDialog(this, "Producto Agregado a la Orden");
-            System.out.println(valorFinal);
         }
     }//GEN-LAST:event_jBAgregarPActionPerformed
 
     private void jBorrarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBorrarPActionPerformed
         carrito.clear();
+        cant.clear();
         valorFinal = 0;
         JOptionPane.showMessageDialog(this, "Orden Borrada");
     }//GEN-LAST:event_jBorrarPActionPerformed
 
     private void jBTerminarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTerminarPActionPerformed
         Conexion con = new Conexion();
-
+        siguiente1 = idAutoincrementado("pedido");
         try {
             Connection cone = con.getConec();
             ps = cone.prepareStatement("INSERT INTO pedido (Codigo,Fecha,Cedula_Cliente,Restaurante,Valor_Total) VALUES(?,?,?,?,?)");
-            ps.setInt(1, 1);
+            ps.setInt(1, siguiente1);
             ps.setDate(2, Date.valueOf(fechaLabel.getText()));
             ps.setInt(3, Integer.valueOf((String) cedulaCli.getSelectedItem()));
             ps.setInt(4, restaurante);
@@ -672,9 +714,29 @@ public class Cliente extends javax.swing.JFrame {
         } catch (Exception e) {
             System.err.println(e);
         }
+        
+        for (int i = 0; i < carrito.size(); i++){
+            siguiente2 = idAutoincrementado("incluye");
+            try {
+                Connection cone = con.getConec();
+                ps = cone.prepareStatement("INSERT INTO incluye (Codigo,Cod_Producto,Cod_Pedido,Cantidad) VALUES(?,?,?,?)");
+                ps.setInt(1, siguiente2);
+                ps.setInt(2, Integer.valueOf((String) carrito.elementAt(i)));
+                ps.setInt(3, siguiente1);
+                ps.setInt(4, Integer.valueOf((String) cant.elementAt(i)));
+                
+                ps.executeUpdate();
+
+                cone.close();
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        }
     }//GEN-LAST:event_jBTerminarPActionPerformed
 
     private void jTableProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProductoMouseClicked
+        cantidadProd.setText("1");
+        
         try {
             Conexion con = new Conexion();
             Connection cone = con.getConec();
@@ -742,6 +804,7 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JButton bBuscar;
     private javax.swing.JButton bModificar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JTextField cantidadProd;
     private javax.swing.JComboBox<String> cedulaCli;
     private javax.swing.JTextField cedulaText;
     private javax.swing.JLabel fechaLabel;
@@ -754,6 +817,7 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
