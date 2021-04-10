@@ -616,10 +616,12 @@ public class Producto extends javax.swing.JFrame {
 
     private void bAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarActionPerformed
         Conexion con = new Conexion();
+        int codigo = Integer.parseInt(codigoText.getText());
+        
         try {
             Connection cone = con.getConec();
             ps = cone.prepareStatement("INSERT INTO producto (Codigo,Nombre,Valor) VALUES(?,?,?)");
-            ps.setInt(1, Integer.parseInt(codigoText.getText()));
+            ps.setInt(1, codigo);
             ps.setString(2, nombreText.getText());
             ps.setFloat(3, Float.parseFloat(valorText.getText()));
 
@@ -636,6 +638,22 @@ public class Producto extends javax.swing.JFrame {
 
             cone.close();
         } catch (Exception e) {
+            System.err.println(e);
+        }
+        
+        try{
+            Connection cone = con.getConec();
+            ps = cone.prepareStatement("INSERT INTO ofrece (Codigo,Codigo_Producto,Codigo_Restaurante) VALUES(?,?,?)");
+            ps.setInt(1, idAutoincrementado("ofrece"));
+            System.out.println("1");
+            ps.setInt(2, codigo); //Parameter index out of range (2 > number of parameters, which is 0).
+            System.out.println("2");
+            ps.setInt(3, restaurante);
+            
+            ps.executeUpdate();
+            
+            cone.close();
+        }catch(Exception e){
             System.err.println(e);
         }
     }//GEN-LAST:event_bAgregarActionPerformed
