@@ -673,7 +673,7 @@ public class Cliente extends javax.swing.JFrame {
         } else {
             carrito.addElement(CodProd.getText());
             cant.addElement(cantidadProd.getText());
-            valorFinal = valorFinal + Float.valueOf(valorProd.getText());
+            valorFinal = valorFinal + (Float.valueOf(valorProd.getText()) * Float.valueOf(cantidadProd.getText()));
             for (int i = 0; i < carrito.size(); i++) {
                 System.out.println(carrito.elementAt(i));
                 System.out.println(cant.elementAt(i));

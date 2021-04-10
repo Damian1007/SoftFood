@@ -643,14 +643,12 @@ public class Producto extends javax.swing.JFrame {
         
         try{
             Connection cone = con.getConec();
-            ps = cone.prepareStatement("INSERT INTO ofrece (Codigo,Codigo_Producto,Codigo_Restaurante) VALUES(?,?,?)");
-            ps.setInt(1, idAutoincrementado("ofrece"));
-            System.out.println("1");
-            ps.setInt(2, codigo); //Parameter index out of range (2 > number of parameters, which is 0).
-            System.out.println("2");
-            ps.setInt(3, restaurante);
+            ps1 = cone.prepareStatement("INSERT INTO ofrece (Codigo, Codigo_Producto, Codigo_Restaurante) VALUES(?,?,?)");
+            ps1.setInt(1, idAutoincrementado("ofrece"));
+            ps1.setInt(2, codigo);
+            ps1.setInt(3, restaurante);
             
-            ps.executeUpdate();
+            ps1.executeUpdate();
             
             cone.close();
         }catch(Exception e){
