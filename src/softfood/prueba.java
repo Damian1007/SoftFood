@@ -1,10 +1,14 @@
 package softfood;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -13,7 +17,8 @@ public class prueba extends javax.swing.JFrame {
 
     PreparedStatement ps;
     ResultSet rs;
-
+    Date convertidoIni;
+    Date convertidoFinal;
     public prueba() {
         initComponents();
     }
@@ -69,9 +74,9 @@ public class prueba extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(84, 84, 84)
+                .addGap(124, 124, 124)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(235, Short.MAX_VALUE))
+                .addContainerGap(195, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(35, 35, 35)
@@ -101,11 +106,18 @@ public class prueba extends javax.swing.JFrame {
             jTableFechaInsumo.setModel(modelo);
             Conexion con = new Conexion();
             Connection cone = con.getConec();
-
+            String Fecha_Inicio = "2020-03-01";
+            String Fecha_Final = "2021-06-01";
+            LocalDate localDate_Ini = LocalDate.parse(Fecha_Inicio);
+            LocalDate localDate_Final = LocalDate.parse(Fecha_Final);
+            System.out.println(localDate_Ini);
+            System.out.println(localDate_Final);
             String sql = "SELECT *, (ELT(WEEKDAY(Fecha_Compra) + 1,  'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo')) AS DIA_SEMANA\n"
                     + "FROM softfood.insumo\n"
-                    + "WHERE WEEKDAY(Fecha_Compra) = ?";
+                    + "WHERE (Fecha_Compra BETWEEN '"+localDate_Ini+"' AND '"+localDate_Final+"') and WEEKDAY(Fecha_Compra) = ? ";
             ps = cone.prepareStatement(sql);
+            
+          
             ps.setInt(1, diaSemana);
             rs = ps.executeQuery();
 

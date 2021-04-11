@@ -213,7 +213,9 @@ public class Menu_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnSalirActionPerformed
 
     private void btnCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCliente1ActionPerformed
-        // TODO add your handling code here:
+        ReportesCli reports = new ReportesCli(cualusuarioes, this.restaurante);
+        reports.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCliente1ActionPerformed
 
    
