@@ -509,12 +509,14 @@ public class Producto extends javax.swing.JFrame {
         jLabel8.setOpaque(true);
 
         codigoproductotext.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        codigoproductotext.setEnabled(false);
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Nombre Insumo:");
         jLabel9.setOpaque(true);
 
         nombreInsumoText.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        nombreInsumoText.setEnabled(false);
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setText("Cantidad Insumo:");

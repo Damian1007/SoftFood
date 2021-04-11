@@ -619,6 +619,8 @@ public class Cliente extends javax.swing.JFrame {
         } catch (Exception e) {
             System.err.println(e);
         }
+        
+        mostrarCedulas();
     }//GEN-LAST:event_bAgregarActionPerformed
 
     private void bModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarActionPerformed
@@ -726,10 +728,6 @@ public class Cliente extends javax.swing.JFrame {
             carrito.addElement(CodProd.getText());
             cant.addElement(cantidadProd.getText());
             valorFinal = valorFinal + (Float.valueOf(valorProd.getText()) * Float.valueOf(cantidadProd.getText()));
-            for (int i = 0; i < carrito.size(); i++) {
-                System.out.println(carrito.elementAt(i));
-                System.out.println(cant.elementAt(i));
-            }
             JOptionPane.showMessageDialog(this, "Producto Agregado a la Orden");
         }
     }//GEN-LAST:event_jBAgregarPActionPerformed
@@ -801,7 +799,6 @@ public class Cliente extends javax.swing.JFrame {
                     + "FROM producto \n"
                     + "WHERE Codigo = ?");
             ps.setInt(1, Integer.parseInt(codigo));
-            //ps.setFloat(2, Float.valueOf(valor));
             rs = ps.executeQuery();
 
             while (rs.next()) {
