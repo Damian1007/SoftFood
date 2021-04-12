@@ -23,17 +23,24 @@ public class Menu_Principal extends javax.swing.JFrame {
         this.restaurante = restaurante;
         
         if(cualusuario == 1){
-            jLabelUsuario.setText("Administrador");
-        }else if(cualusuario == 2){
-            jLabelUsuario.setText("Administrador restaurante");
+            jLabelUsuario.setText("Administrador Centro Comercial");
             btnEmpleado.setEnabled(false);
+            btnInsumo.setEnabled(false);
+            btnPrductos.setEnabled(false);
+            btnCliente.setEnabled(false);
+            
+        }else if(cualusuario == 2){
+            jLabelUsuario.setText("Administrador Restaurante");
+            btnReportes.setEnabled(false);
+            btnRestaurante.setEnabled(false);
             
         }else{
-            jLabelUsuario.setText("operario");
+            jLabelUsuario.setText("Operario");
             btnEmpleado.setEnabled(false);
             btnInsumo.setEnabled(false);
             btnPrductos.setEnabled(false);
             btnRestaurante.setEnabled(false);
+            btnReportes.setEnabled(false);
         }
     }
 
@@ -50,7 +57,7 @@ public class Menu_Principal extends javax.swing.JFrame {
         jLabelUsuario = new javax.swing.JLabel();
         jBtnSalir = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        btnCliente1 = new javax.swing.JButton();
+        btnReportes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,11 +119,11 @@ public class Menu_Principal extends javax.swing.JFrame {
         jLabel5.setText("MENU PRINCIPAL");
         jLabel5.setOpaque(true);
 
-        btnCliente1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btnCliente1.setText("Reportes");
-        btnCliente1.addActionListener(new java.awt.event.ActionListener() {
+        btnReportes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnReportes.setText("Reportes");
+        btnReportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCliente1ActionPerformed(evt);
+                btnReportesActionPerformed(evt);
             }
         });
 
@@ -125,27 +132,26 @@ public class Menu_Principal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(187, 187, 187)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnRestaurante, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnPrductos, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(57, 57, 57)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(285, 285, 285)
-                        .addComponent(jBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(224, 224, 224)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(260, 260, 260)
-                        .addComponent(jLabelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(285, 285, 285)
+                            .addComponent(jBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(224, 224, 224)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(187, 187, 187)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnRestaurante, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnPrductos, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(57, 57, 57)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnInsumo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(204, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -166,7 +172,7 @@ public class Menu_Principal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(63, 63, 63)
                 .addComponent(jBtnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(160, Short.MAX_VALUE))
@@ -212,11 +218,11 @@ public class Menu_Principal extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jBtnSalirActionPerformed
 
-    private void btnCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCliente1ActionPerformed
+    private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
         ReportesCli reports = new ReportesCli(cualusuarioes, this.restaurante);
         reports.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnCliente1ActionPerformed
+    }//GEN-LAST:event_btnReportesActionPerformed
 
    
     public static void main(String args[]) {
@@ -230,10 +236,10 @@ public class Menu_Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCliente;
-    private javax.swing.JButton btnCliente1;
     private javax.swing.JButton btnEmpleado;
     private javax.swing.JButton btnInsumo;
     private javax.swing.JButton btnPrductos;
+    private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnRestaurante;
     private javax.swing.JButton jBtnSalir;
     private javax.swing.JLabel jLabel5;
