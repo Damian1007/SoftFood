@@ -24,7 +24,6 @@ public class Menu_Principal extends javax.swing.JFrame {
         
         if(cualusuario == 1){
             jLabelUsuario.setText("Administrador Centro Comercial");
-            btnEmpleado.setEnabled(false);
             btnInsumo.setEnabled(false);
             btnPrductos.setEnabled(false);
             btnCliente.setEnabled(false);

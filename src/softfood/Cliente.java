@@ -121,6 +121,7 @@ public class Cliente extends javax.swing.JFrame {
     }
 
     public void mostrarCedulas() {
+        cedulaCli.removeAllItems();
         try {
             Conexion con = new Conexion();
             Connection cone = con.getConec();
