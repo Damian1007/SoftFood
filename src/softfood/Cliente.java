@@ -779,10 +779,10 @@ public class Cliente extends javax.swing.JFrame {
            
             table.setHeaderRows(1);
              for (int i = 0; i <     cant.size(); i++) {
-                 table.addCell((String)carrito.elementAt(i));
+                table.addCell((String)carrito.elementAt(i));
                 table.addCell((String) cant.elementAt(i));
                 table.addCell((String) fecha.elementAt(i));
-                table.addCell((String) Valor.elementAt(i));
+                table.addCell(String.valueOf((Float.valueOf((String) Valor.elementAt(i)) * Float.valueOf((String) cant.elementAt(i)))));
                 
                 
             }
