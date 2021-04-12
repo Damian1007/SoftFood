@@ -1,7 +1,14 @@
 package softfood;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -16,6 +23,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import static softfood.ReportesCli.Nombre;
 
 public class Cliente extends javax.swing.JFrame {
 
@@ -26,7 +34,11 @@ public class Cliente extends javax.swing.JFrame {
     int restaurante;
     static Vector carrito = new Vector();
     static Vector cant = new Vector();
+    static Vector Valor = new Vector();
+    static Vector fecha = new Vector();
     float valorFinal = 0;
+    String nom_res;
+    String nom_cli;
     int siguiente1;
     int siguiente2;
     
@@ -727,6 +739,8 @@ public class Cliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No ha seleccionado ningun Producto");
         } else {
             carrito.addElement(CodProd.getText());
+            Valor.addElement(valorProd.getText());
+            fecha.addElement(fechaLabel.getText());
             cant.addElement(cantidadProd.getText());
             valorFinal = valorFinal + (Float.valueOf(valorProd.getText()) * Float.valueOf(cantidadProd.getText()));
             JOptionPane.showMessageDialog(this, "Producto Agregado a la Orden");
@@ -739,8 +753,104 @@ public class Cliente extends javax.swing.JFrame {
         valorFinal = 0;
         JOptionPane.showMessageDialog(this, "Orden Borrada");
     }//GEN-LAST:event_jBorrarPActionPerformed
+    public void GenerarPdf_Ventas(){
+      
+        try{
+        FileOutputStream archivo;
+        String file = "src/pdf/venta.pdf";
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream(file));
+        document.open();
+        
+            Paragraph para = new Paragraph((String) fecha.elementAt(0)+"                         "+nom_res+"             Factura REPORTE BY SOFTFOOD");
+            document.add(para);
+            para = new Paragraph(" ");
+            document.add(para);
+            PdfPTable table = new PdfPTable(4);
+            PdfPCell c1 = new PdfPCell(new Phrase("Producto"));
+            table.addCell(c1);
+            c1 = new PdfPCell(new Phrase("Cantidad"));
+            table.addCell(c1);
+            c1 = new PdfPCell(new Phrase("fecha"));
+            table.addCell(c1);
+            c1 = new PdfPCell(new Phrase("Precio"));
+            table.addCell(c1);
+            
+           
+            table.setHeaderRows(1);
+             for (int i = 0; i <     cant.size(); i++) {
+                 table.addCell((String)carrito.elementAt(i));
+                table.addCell((String) cant.elementAt(i));
+                table.addCell((String) fecha.elementAt(i));
+                table.addCell((String) Valor.elementAt(i));
+                
+                
+            }
+            document.add(table);
+            para = new Paragraph(" ");
+            document.add(para);
+            
+            para = new Paragraph(nom_cli+"                                                                                                        Valor Total:  "+valorFinal);
+            document.add(para);
+            
+            
+            
+            document.close();
+            
+            
+        } catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    public void Sele_Cli(){
+        try {
+            Conexion con = new Conexion();
+            Connection cone = con.getConec();
 
+           
+
+            ps = cone.prepareStatement("SELECT Nombre \n"
+                    + "FROM cliente \n"
+                    + "WHERE Cedula = ?");
+            ps.setInt(1, Integer.valueOf((String) cedulaCli.getSelectedItem()));
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                nom_cli = rs.getString(1);
+                
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+    }
+    
+    public void Sele_Res(){
+        try {
+            Conexion con = new Conexion();
+            Connection cone = con.getConec();
+
+           
+
+            ps = cone.prepareStatement("SELECT Nombre \n"
+                    + "FROM restaurante \n"
+                    + "WHERE Codigo = ?");
+            ps.setInt(1, restaurante);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                nom_res = rs.getString(1);
+                
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+    }
     private void jBTerminarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTerminarPActionPerformed
+        Sele_Res();
+        Sele_Cli();
+        GenerarPdf_Ventas();
         Conexion con = new Conexion();
         siguiente1 = idAutoincrementado("pedido");
         try {
