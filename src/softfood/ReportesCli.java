@@ -216,6 +216,11 @@ public class ReportesCli extends javax.swing.JFrame {
            
         }
         
+        Nombre.clear();
+        cant .clear();
+        valor.clear();
+        fecha.clear();
+        
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
