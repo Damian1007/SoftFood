@@ -707,7 +707,7 @@ public class ReportesCli extends javax.swing.JFrame {
            
             table.setHeaderRows(1);
              for (int i = 0; i < Nombre.size(); i++) {
-                table.addCell((String) carrito.elementAt(i));
+                table.addCell((String) Nombre.elementAt(i));
                 table.addCell((String) valor.elementAt(i));
             }
             
